@@ -1,4 +1,4 @@
-* {
+admin panel* {
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
@@ -8,6 +8,7 @@ body {
   padding: 0;
   max-width: 100%;
   background-color: #ffff;
+  font-family: "Playfair Display", serif;
 }
 
 .hero {
@@ -49,7 +50,7 @@ body {
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  /* transition: background 0.3s ease; */
 }
 
 .hero-btn:hover {
@@ -98,7 +99,7 @@ body {
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  font-family: "Playfair Display", serif; /* Elegant Font */
+  font-family: "Playfair Display", serif;
   color: #000;
   transition: color 0.3s ease;
 }
@@ -117,7 +118,7 @@ body {
 
 /* Speakers Section*/
 .speakers {
-  box-shadow: 0px 1px 3cap rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 1px 2cap rgba(0, 0, 0, 0.1);
 }
 
 .speaker-list {
@@ -211,6 +212,131 @@ body {
 
 .submit-button:hover {
   background: #fbc02d;
+}
+
+/* Admin Panel */
+.app_container {
+  background: #ffff;
+}
+
+.navbar-content {
+  box-shadow: 0px 2px 4cap rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+.header-content {
+  background: linear-gradient(
+    50deg,
+    #59eb1f94,
+    #ffff,
+    #ffff,
+    #ffff,
+    #ffff,
+    #59eb1f94
+  );
+  height: 1vh;
+  padding: 4% 4%;
+  padding-left: 15%;
+  padding-top: -20px;
+  margin-bottom: 10px;
+}
+
+.header-title h2 {
+  margin: 0px auto;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: -20px;
+}
+
+.header-title p {
+  margin: 0px auto;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Illustration */
+.header-image {
+  display: flex;
+  justify-content: center;
+}
+
+.header-image img {
+  max-width: 10%;
+  height: auto;
+  margin-left: 40%;
+  margin-top: -9%;
+}
+
+/* nav bar */
+.nav-bar {
+  display: flex;
+  margin-top: -5px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: #fff;
+  font-family: "Playfair Display", serif;
+  width: 100%;
+  top: 0;
+}
+
+.nav-item-menu {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+}
+
+.nav-item-menu li {
+  list-style: none;
+}
+
+.nav-item-menu .nav-item {
+  text-decoration: none;
+  color: #000;
+  transition: #000 0.3s ease-in-out;
+  font-size: 16px;
+}
+
+.nav-item-menu .nav-item:hover {
+  border-bottom: 2px solid #47d50f;
+  color: #000;
+}
+
+.nav-item-menu .active {
+  background: #fbc02d;
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+/* Main body */
+
+.main-section {
+  margin: 10%;
+  margin-top: 40px;
+}
+
+.main-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+}
+
+/* for footer side css is here */
+.copyrightholder {
+  background-color: #fff;
+  /* min-height: 50px; */
+  color: #000 !important;
+}
+
+.copyrightholder p {
+  text-align: center;
+  padding: 10px;
 }
 
 /* Responsive Design */
