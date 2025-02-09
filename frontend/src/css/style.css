@@ -1,0 +1,231 @@
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  background-color: #ffff;
+}
+
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #59eb1f94);
+  height: 80vh;
+  padding: 10% 10%;
+  padding-left: 15%;
+}
+
+/* Home Section */
+.hero-content {
+  flex: 1;
+  max-width: 500px;
+  width: 100%;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.hero-btn {
+  list-style: none;
+  text-decoration: none;
+  background: #47d50f;
+  color: #ffff;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.hero-btn:hover {
+  background: #fbc02d;
+}
+
+/* Illustration */
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  max-width: 70%;
+  height: auto;
+  margin-left: 25%;
+  margin-top: 30px;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0px 2px 4cap rgba(0, 0, 0, 0.1);
+  padding: 15px 0;
+  text-align: center;
+  z-index: 1000;
+}
+
+/* Navigation List */
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 0;
+}
+
+/* Menu Items */
+.nav-links li {
+  margin-left: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: "Playfair Display", serif; /* Elegant Font */
+  color: #000;
+  transition: color 0.3s ease;
+}
+
+.nav-links li:hover {
+  color: #000;
+  border-radius: 2px;
+  border-bottom: 2px solid #47d50f;
+}
+
+.speakers,
+.registration {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+/* Speakers Section*/
+.speakers {
+  box-shadow: 0px 1px 3cap rgba(0, 0, 0, 0.1);
+}
+
+.speaker-list {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.speaker-card {
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  width: 300px;
+  text-align: center;
+}
+
+.speaker-img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Registration Section*/
+.form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  margin-left: -50px;
+}
+
+/* Illustration */
+.form-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.form-image img {
+  max-width: 60%;
+  height: auto;
+  margin-left: 10%;
+}
+
+.form-card {
+  margin: 0px auto;
+  margin-top: -50px;
+  background: white;
+  border-radius: 10px;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+}
+
+.form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  width: 200%;
+}
+
+.input-field {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.submit-button {
+  background: #47d50f;
+  color: white;
+  width: 50%;
+  margin-top: 30px;
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.submit-button:hover {
+  background: #fbc02d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-content {
+    margin-bottom: 20px;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
