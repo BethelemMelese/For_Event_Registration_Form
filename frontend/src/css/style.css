@@ -84,7 +84,7 @@ body {
   display: block;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
-  color: var(--primary-color);
+  color: #000;
 }
 
 .navbar {
