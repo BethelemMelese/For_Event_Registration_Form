@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card, Dropdown, GetProp, Menu, Table, TableProps } from "antd";
 import { Button } from "@mui/material";
 import image from "../../images/Events-amico-purpule.png";
@@ -7,6 +8,9 @@ import { DownOutlined } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
 import exportPDF from "../../service/importPdf";
 import { PDF } from "../..//service/model/pdf";
+import axios from "axios";
+import { appUrl } from "../../appurl";
+import Notification from "../../commonComponent/notification";
 
 type TablePaginationConfig = Exclude<
   GetProp<TableProps, "pagination">,
@@ -28,6 +32,8 @@ interface TableParams {
 }
 
 const AdminPanel = ({ ...props }) => {
+  const navigate = useNavigate();
+  const [dataSource, setDataSource] = useState<any>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<DataType[]>();
   const [loading, setLoading] = useState(false);
@@ -37,17 +43,20 @@ const AdminPanel = ({ ...props }) => {
       pageSize: 5,
     },
   });
+  const [notify, setNotify] = useState({
+    isOpen: false,
+    message: "",
+    type: "",
+  });
+
+  console.log("dataSource...", dataSource);
 
   const toggleMenu = () => {
     setIsOpen((prevState) => !prevState);
   };
 
   const onLogout = () => {
-    localStorage.removeItem("controller");
-    localStorage.removeItem("permission");
-    localStorage.removeItem("role");
     localStorage.removeItem("token");
-    window.location.reload();
   };
 
   //   identify the columns that has to display on the table
@@ -98,6 +107,40 @@ const AdminPanel = ({ ...props }) => {
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
       setData([]);
     }
+  };
+
+  //for get all data
+  const onFetchAdmin = () => {
+    axios
+      // .create({
+      //   headers: {
+      //     Authorization: `Bearer ${localStorage.getItem("token")}`,
+      //   },
+      // })
+      .get(appUrl + `users/getAllUser`)
+      .then((res) => {
+        setLoading(false);
+        setDataSource(res.data);
+      })
+      .catch((error: any) => {
+        setLoading(false);
+        onViewError(error.response.data.message);
+      });
+  };
+
+  //to fetch data using useEffect , when everytime thise page is load
+  useEffect(() => {
+    setLoading(true);
+    onFetchAdmin();
+  }, []);
+
+  //notification for success and error action
+  const onViewError = (response: any) => {
+    setNotify({
+      isOpen: true,
+      type: "error",
+      message: response,
+    });
   };
 
   const dataSourceMoke = [
@@ -183,13 +226,13 @@ const AdminPanel = ({ ...props }) => {
       unit: "pt",
     };
     exportPDF({
-      items: dataSourceMoke,
+      items: dataSource,
       visibleColumn: visibleColumn,
       pdfConfig: pdfConfig,
     });
   };
 
-  const execl = dataSourceMoke;
+  const execl = dataSource;
   const Execlheaders = [
     {
       label: "label",
@@ -260,7 +303,7 @@ const AdminPanel = ({ ...props }) => {
               <ul className={`nav-item-menu ${isOpen ? "open" : ""}`}>
                 <li>
                   <NavLink
-                    to="adminPanel"
+                    to="/forEvent/adminPanel"
                     className="nav-item"
                     onClick={toggleMenu}
                   >
@@ -269,16 +312,7 @@ const AdminPanel = ({ ...props }) => {
                 </li>
                 <li>
                   <NavLink
-                    to="adminPanel"
-                    className="nav-item"
-                    onClick={toggleMenu}
-                  >
-                    Speakers
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="adminPanel"
+                    to="/forEvent/changePassword"
                     className="nav-item"
                     onClick={toggleMenu}
                   >
@@ -288,7 +322,7 @@ const AdminPanel = ({ ...props }) => {
                 {localStorage.getItem("role") !== "Customer" && (
                   <li className="account">
                     <NavLink
-                      to="/register"
+                      to="/login"
                       className="nav-item account"
                       onClick={onLogout}
                       style={{ color: "#ff7f16" }}
@@ -329,15 +363,16 @@ const AdminPanel = ({ ...props }) => {
                 size="small"
                 columns={columns}
                 rowKey={(record) => record.id}
-                dataSource={dataSourceMoke}
+                dataSource={dataSource}
                 pagination={tableParams.pagination}
                 loading={loading}
-                // onChange={handleTableChange}
+                onChange={handleTableChange}
               />
             </Card>
           </div>
         </Card>
       </section>
+      <Notification notify={notify} setNotify={setNotify} />
     </div>
   );
 };

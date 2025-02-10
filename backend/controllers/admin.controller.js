@@ -4,17 +4,18 @@ const jwt = require("jsonwebtoken");
 
 const RegisterAdmin = async (req, res) => {
   try {
+    console.log("req.body...",req.body);
     const saltRounds = 10;
     const password = bcrypt.hashSync(req.body.password, saltRounds);
-    const Admin = await Admin.create({
+    const admin = await Admin.create({
       userName: req.body.userName,
       passwordHash: password,
     });
 
     res.status(200).json({
-      id: Admin._id,
-      userName: Admin.userName,
-      passwordHash: Admin.passwordHash,
+      id: admin._id,
+      userName: admin.userName,
+      passwordHash: admin.passwordHash,
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

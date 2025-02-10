@@ -5,9 +5,9 @@ const {
   GetAllUser,
   RegisterUser,
 } = require("../controllers/user.controller.js");
-const { verificationToken } = require("../controllers/user.controller.js");
+const { verificationToken } = require("../controllers/admin.controller.js");
 
-router.get("/getAllUser", verificationToken, GetAllUser);
+router.get("/getAllUser", GetAllUser);
 router.post("/registerUser", RegisterUser);
 
 module.exports = router;

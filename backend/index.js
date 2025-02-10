@@ -5,8 +5,13 @@ const cors = require("cors");
 const app = express();
 const port = 5000; // You can choose any port number you prefer.
 
+const admin=require("./routes/admin.router.js");
+const user=require("./routes/user.router.js");
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+// configuration file
 dotenv.config();
 
 // const allowedOrigins = ["https://datawizdipsy.netlify.app/"];
@@ -39,17 +44,26 @@ app.use((req, res, next) => {
   );
   next();
 });
+
 // Middleware to serve static files
 app.use(express.static("public"));
 
-const dbUrl =
-  "mongodb+srv://melesebety2673:Admin@123@event-registration-form.z5ikc.mongodb.net/?retryWrites=true&w=majority&appName=Event-Registration-Form"; // Replace 'my_database' with your preferred database name.
 
-mongoose
-  .connect("mongodb+srv://melesebety2673:Admin@123@event-registration-form.z5ikc.mongodb.net/?retryWrites=true&w=majority")
+app.get("/", (req, res) => {
+  res.send("Hello, Express.js with MongoDB!");
+});
+
+// routes
+app.use("/api/admin", admin);
+app.use("/api/users", user);
+
+// Connection with Mongodb Database and run the server
+let PORT = process.env.PORT || 5000;
+  mongoose
+  .connect("mongodb+srv://melesebety2673:Admin@businessevent.caewh.mongodb.net/?retryWrites=true&w=majority&appName=BusinessEvent")
   .then(() => {
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}...`);
+    app.listen(PORT, () => {
+      console.log(`Server is running on PORT ${PORT}...`);
     });
     console.log("Connected to database!");
   })
@@ -57,6 +71,3 @@ mongoose
     console.log("Connection failed!", error);
   });
 
-app.get("/", (req, res) => {
-  res.send("Hello, Express.js with MongoDB!");
-});
