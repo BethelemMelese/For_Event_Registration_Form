@@ -3,20 +3,21 @@ import Home from "./main/index";
 import AdminPanel from "./components/admin";
 import "./css/style.css";
 import "./App.css";
-import { Route, Routes } from "react-router";
+// import { Route, Routes } from "react-router";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function AppRoute() {
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route
-          path="forEvent"
-          // element={<RoutePrivacy component={MainLayout} />}
-        >
-          <Route path="adminPanel" element={<AdminPanel />} />
-        </Route>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="forEvent"
+            // element={<RoutePrivacy component={MainLayout} />}
+          >
+            <Route path="adminPanel" element={<AdminPanel />} />
+          </Route>
+        </Routes>
     </div>
   );
 }

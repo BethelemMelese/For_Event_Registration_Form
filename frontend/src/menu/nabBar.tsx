@@ -1,7 +1,7 @@
 import React from "react";
 import "../css/style.css";
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) {
