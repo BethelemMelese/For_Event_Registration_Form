@@ -19,7 +19,7 @@ const NoPermission = ({ ...props }) => {
 
         <Grid item xs={12}>
           <Typography variant="h3" color="red">
-            No Permission is Found
+            No Permission
           </Typography>
           <Typography variant="h6">
             You don't have Permission for this page

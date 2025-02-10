@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 
 const RegisterAdmin = async (req, res) => {
   try {
-    console.log("req.body...", req.body);
     const saltRounds = 10;
     const password = bcrypt.hashSync(req.body.password, saltRounds);
     const admin = await Admin.create({
@@ -24,7 +23,6 @@ const RegisterAdmin = async (req, res) => {
 
 const LoginAdmin = async (req, res) => {
   try {
-    console.log("req.body...",req.body);
     const { userName, password } = req.body;
     const admin = await Admin.findOne({ userName });
     if (!admin) {
@@ -56,6 +54,7 @@ const LoginAdmin = async (req, res) => {
       res.status(200).json({
         message: "Login is Successfully Done !",
         token: updatedAdmin.token,
+        role: "Admin",
         name: updatedAdmin.userName,
       });
     } else if (!isPasswordMatch) {
@@ -95,7 +94,11 @@ const updatePassword = async (req, res) => {
         });
       }
       const saltRounds = 10;
-      bcrypt.hashSync(newPassword, saltRounds);
+      const password = bcrypt.hashSync(newPassword, saltRounds);
+      await Admin.updateOne(
+        { _id: id },
+        { passwordHash: password }
+      );
       res.status(200).json({ message: "Password is Successfully Updated !" });
     }
   } catch (error) {
@@ -119,9 +122,29 @@ const verificationToken = async (req, res, next) => {
   }
 };
 
+const getUserByToken = async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    const admin = await Admin.findOne({ token: token });
+    if (!admin) {
+      res.status(404).json({ message: "User not Found !" });
+    }
+
+    res.status(200).json({
+      id: admin._id,
+      userName: admin.userName,
+      passwordHash: admin.passwordHash,
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   LoginAdmin,
   RegisterAdmin,
   updatePassword,
   verificationToken,
+  getUserByToken,
 };

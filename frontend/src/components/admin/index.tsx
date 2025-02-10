@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import { Card, Dropdown, GetProp, Menu, Table, TableProps } from "antd";
 import { Button } from "@mui/material";
-import image from "../../images/Events-amico-purpule.png";
 import { DownOutlined } from "@ant-design/icons";
 import { CSVLink } from "react-csv";
 import exportPDF from "../../service/importPdf";
@@ -32,9 +29,7 @@ interface TableParams {
 }
 
 const AdminPanel = ({ ...props }) => {
-  const navigate = useNavigate();
   const [dataSource, setDataSource] = useState<any>([]);
-  const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<DataType[]>();
   const [loading, setLoading] = useState(false);
   const [tableParams, setTableParams] = useState<TableParams>({
@@ -48,15 +43,6 @@ const AdminPanel = ({ ...props }) => {
     message: "",
     type: "",
   });
-
-
-  const toggleMenu = () => {
-    setIsOpen((prevState) => !prevState);
-  };
-
-  const onLogout = () => {
-    localStorage.removeItem("token");
-  };
 
   //   identify the columns that has to display on the table
   const columns: any = [
@@ -111,11 +97,11 @@ const AdminPanel = ({ ...props }) => {
   //for get all data
   const onFetchAdmin = () => {
     axios
-      // .create({
-      //   headers: {
-      //     Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //   },
-      // })
+      .create({
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
       .get(appUrl + `users/getAllUser`)
       .then((res) => {
         setLoading(false);
@@ -141,54 +127,6 @@ const AdminPanel = ({ ...props }) => {
       message: response,
     });
   };
-
-  const dataSourceMoke = [
-    {
-      id: 1,
-      fullName: "Bethelem Melese",
-      email: "melesebety2673@gmail.com",
-      phone: "0934341010",
-      country: "Ethiopia",
-      city: "Addis Ababa",
-      profession: "Software Developer",
-    },
-    {
-      id: 2,
-      fullName: "Bethelem Melese",
-      email: "melesebety2673@gmail.com",
-      phone: "0934341010",
-      country: "Ethiopia",
-      city: "Addis Ababa",
-      profession: "Software Developer",
-    },
-    {
-      id: 3,
-      fullName: "Bethelem Melese",
-      email: "melesebety2673@gmail.com",
-      phone: "0934341010",
-      country: "Ethiopia",
-      city: "Addis Ababa",
-      profession: "Software Developer",
-    },
-    {
-      id: 4,
-      fullName: "Bethelem Melese",
-      email: "melesebety2673@gmail.com",
-      phone: "0934341010",
-      country: "Ethiopia",
-      city: "Addis Ababa",
-      profession: "Software Developer",
-    },
-    {
-      id: 5,
-      fullName: "Bethelem Melese",
-      email: "melesebety2673@gmail.com",
-      phone: "0934341010",
-      country: "Ethiopia",
-      city: "Addis Ababa",
-      profession: "Software Developer",
-    },
-  ];
 
   const exportAll = () => {
     const visibleColumn = [
@@ -284,93 +222,40 @@ const AdminPanel = ({ ...props }) => {
   );
   return (
     <div className="app_container">
-      <section className="header-section">
-        <div className="header-content">
-          <div className="header-title">
-            <h2>Grand Habesha Business Event</h2>
-            <p>
-              Expand your network and grow your business with industry leaders.
-            </p>
-          </div>
-          <div className="header-image">
-            <img src={image} alt="Business Event" />
-          </div>
-        </div>
-        <div className="navbar-content">
-          <div className="nav-bar">
-            <nav className="main-nav-menu">
-              <ul className={`nav-item-menu ${isOpen ? "open" : ""}`}>
-                <li>
-                  <NavLink
-                    to="/forEvent/adminPanel"
-                    className="nav-item"
-                    onClick={toggleMenu}
-                  >
-                    Participant
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/forEvent/changePassword"
-                    className="nav-item"
-                    onClick={toggleMenu}
-                  >
-                    Change Password
-                  </NavLink>
-                </li>
-                {localStorage.getItem("role") !== "Customer" && (
-                  <li className="account">
-                    <NavLink
-                      to="/login"
-                      className="nav-item account"
-                      onClick={onLogout}
-                      style={{ color: "#ff7f16" }}
-                    >
-                      LogOut
-                    </NavLink>
-                  </li>
-                )}
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </section>
-      <section className="main-section">
-        <Card
-          title={<h2>List of Participant</h2>}
-          extra={
-            <Dropdown
-              overlay={menu}
-              placement="bottom"
-              arrow={{ pointAtCenter: true }}
-            >
-              <Button size="small" variant="contained">
-                <div className="font-medium">Export</div>
-                <DownOutlined
-                  translate={undefined}
-                  style={{ marginLeft: "2px" }}
-                />
-              </Button>
-            </Dropdown>
-          }
-          className="main-content"
-        >
-          <div className="list_data">
-            <Card>
-              <Table
-                className="table-list"
-                size="small"
-                columns={columns}
-                rowKey={(record) => record.id}
-                dataSource={dataSource}
-                pagination={tableParams.pagination}
-                loading={loading}
-                onChange={handleTableChange}
+      <Card
+        title={<h2>List of Participant</h2>}
+        extra={
+          <Dropdown
+            overlay={menu}
+            placement="bottom"
+            arrow={{ pointAtCenter: true }}
+          >
+            <Button size="small" variant="contained">
+              <div className="font-medium">Export</div>
+              <DownOutlined
+                translate={undefined}
+                style={{ marginLeft: "2px" }}
               />
-            </Card>
-          </div>
-        </Card>
-      </section>
+            </Button>
+          </Dropdown>
+        }
+        className="main-content"
+      >
+        <div className="list_data">
+          <Card>
+            <Table
+              className="table-list"
+              size="small"
+              columns={columns}
+              rowKey={(record) => record.id}
+              dataSource={dataSource}
+              pagination={tableParams.pagination}
+              loading={loading}
+              onChange={handleTableChange}
+            />
+          </Card>
+        </div>
+      </Card>
       <Notification notify={notify} setNotify={setNotify} />
     </div>
   );

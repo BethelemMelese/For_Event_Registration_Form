@@ -7,7 +7,7 @@ const {
 } = require("../controllers/user.controller.js");
 const { verificationToken } = require("../controllers/admin.controller.js");
 
-router.get("/getAllUser", GetAllUser);
+router.get("/getAllUser", verificationToken, GetAllUser);
 router.post("/registerUser", RegisterUser);
 
 module.exports = router;

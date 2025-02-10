@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { appUrl } from "../../appurl";
 import axios from "axios";
 import Notification from "../../commonComponent/notification";
-import image from "../../images/Reset password-rafiki.png";
+import image from "../../images/Tablet login-rafiki.png";
 
 
 const Login = () => {
@@ -40,6 +40,7 @@ const Login = () => {
     });
     setTimeout(() => {
       localStorage.setItem("token", response.token);
+      localStorage.setItem("role", response.role);
       navigate("/forEvent/adminpanel")
     }, 2000);
   };
@@ -72,12 +73,10 @@ const Login = () => {
     <>
       <div>
         <div className="login-container">
-          {/* Left Side - Illustration */}
           <div className="login-illustration">
-            <img src={image} alt="Illustration" />
+            <img src={image} alt="Login Image" />
           </div>
 
-          {/* Right Side - Login Form */}
           <div className="login-form">
             <h2>Sign In</h2>
             <form onSubmit={handleSubmit}>

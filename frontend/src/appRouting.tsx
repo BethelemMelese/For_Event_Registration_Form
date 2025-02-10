@@ -1,10 +1,13 @@
-import Home from "./main/index";
-import AdminPanel from "./components/admin";
-import "./css/style.css";
-import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Login from "./components/login";
 import NoPermission from "./components/noPermission";
+import { AutoRout } from "./polices/AutoRoute";
+import Layout from "./menu/layout";
+import Home from "./main/index";
+import AdminPanel from "./components/admin";
+import ChangePassword from "./components/changePassword";
+import "./css/style.css";
+import "./App.css";
 
 function AppRoute() {
   return (
@@ -13,11 +16,9 @@ function AppRoute() {
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="noPermission" element={<NoPermission />} />
-        <Route
-          path="forEvent"
-          // element={<RoutePrivacy component={MainLayout} />}
-        >
+        <Route path="forEvent" element={<AutoRout component={Layout} />}>
           <Route path="adminPanel" element={<AdminPanel />} />
+          <Route path="changePassword" element={<ChangePassword />} />
         </Route>
       </Routes>
     </div>

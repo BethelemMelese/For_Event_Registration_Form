@@ -5,8 +5,8 @@ const cors = require("cors");
 const app = express();
 const port = 5000; // You can choose any port number you prefer.
 
-const admin=require("./routes/admin.router.js");
-const user=require("./routes/user.router.js");
+const admin = require("./routes/admin.router.js");
+const user = require("./routes/user.router.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: false }));
 // configuration file
 dotenv.config();
 
-// const allowedOrigins = ["https://datawizdipsy.netlify.app/"];
-const allowedOrigins = ["http://localhost:3000"];
+const allowedOrigins = ["https://grandhabshabusinessevent.netlify.app/"];
+// const allowedOrigins = ["http://localhost:3000"];
 
 var corsOptions = {
   origin: allowedOrigins,
@@ -48,7 +48,6 @@ app.use((req, res, next) => {
 // Middleware to serve static files
 app.use(express.static("public"));
 
-
 app.get("/", (req, res) => {
   res.send("Hello, Express.js with MongoDB!");
 });
@@ -59,8 +58,10 @@ app.use("/api/users", user);
 
 // Connection with Mongodb Database and run the server
 let PORT = process.env.PORT || 5000;
-  mongoose
-  .connect("mongodb+srv://melesebety2673:Admin@businessevent.caewh.mongodb.net/?retryWrites=true&w=majority&appName=BusinessEvent")
+mongoose
+  .connect(
+    "mongodb+srv://melesebety2673:Admin@businessevent.caewh.mongodb.net/?retryWrites=true&w=majority&appName=BusinessEvent"
+  )
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server is running on PORT ${PORT}...`);
@@ -70,4 +71,3 @@ let PORT = process.env.PORT || 5000;
   .catch((error) => {
     console.log("Connection failed!", error);
   });
-
