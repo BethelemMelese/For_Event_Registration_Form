@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "../css/style.css";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import { IconButton } from "@mui/material";
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen((prevState) => !prevState);
+  };
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) {
@@ -11,10 +19,40 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <ul className="nav-links">
-        <li onClick={() => scrollToSection("home")}>Home</li>
-        <li onClick={() => scrollToSection("speakers")}>Speakers</li>
-        <li onClick={() => scrollToSection("registration")}>Register Now</li>
+      <div className="hamburger">
+        <IconButton id="check" onClick={toggleMenu}>
+          {isOpen ? (
+            <CloseIcon className="bar" />
+          ) : (
+            <MenuIcon className="bar" />
+          )}
+        </IconButton>
+      </div>
+      <ul className={`nav-links ${isOpen ? "open" : ""}`}>
+        <li
+          onClick={() => {
+            scrollToSection("home");
+            toggleMenu();
+          }}
+        >
+          Home
+        </li>
+        <li
+          onClick={() => {
+            scrollToSection("speakers");
+            toggleMenu();
+          }}
+        >
+          Speakers
+        </li>
+        <li
+          onClick={() => {
+            scrollToSection("registration");
+            toggleMenu();
+          }}
+        >
+          Register Now
+        </li>
       </ul>
     </nav>
   );

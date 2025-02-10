@@ -7,7 +7,6 @@ import Navbar from "../menu/nabBar";
 import Notification from "../commonComponent/notification";
 import React, { useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
 import { appUrl } from "../appurl";
 
 const Home = () => {
@@ -20,6 +19,7 @@ const Home = () => {
     city: "",
     profession: "",
   });
+  
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",

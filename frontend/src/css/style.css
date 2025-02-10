@@ -1,4 +1,5 @@
-admin panel* {
+
+* {
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
@@ -16,7 +17,6 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #407bff);
-  /* background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #59eb1f94); */
   height: 80vh;
   padding: 10% 10%;
   padding-left: 15%;
@@ -74,6 +74,19 @@ body {
 }
 
 /* Navbar */
+.hamburger {
+  display: none;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.bar {
+  display: block;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  color: var(--primary-color);
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -480,21 +493,4 @@ nav {
 .changePassword-form button:hover {
   background: #fbc02d;
   color: #000;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .hero {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .hero-content {
-    margin-bottom: 20px;
-  }
-
-  .nav-links {
-    flex-direction: column;
-    gap: 20px;
-  }
 }

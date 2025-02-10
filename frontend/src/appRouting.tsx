@@ -7,6 +7,7 @@ import Home from "./main/index";
 import AdminPanel from "./components/admin";
 import ChangePassword from "./components/changePassword";
 import "./css/style.css";
+import "./css/media.query.css";
 import "./App.css";
 
 function AppRoute() {
