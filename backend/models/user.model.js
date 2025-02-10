@@ -34,10 +34,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: false,
     },
-    token: {
-      type: String,
-      required: false,
-    },
   },
   { timestamp: true }
 );

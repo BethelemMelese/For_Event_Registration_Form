@@ -46,10 +46,10 @@ const dbUrl =
   "mongodb+srv://melesebety2673:Admin@123@event-registration-form.z5ikc.mongodb.net/?retryWrites=true&w=majority&appName=Event-Registration-Form"; // Replace 'my_database' with your preferred database name.
 
 mongoose
-  .connect(dbUrl)
+  .connect("mongodb+srv://melesebety2673:Admin@123@event-registration-form.z5ikc.mongodb.net/?retryWrites=true&w=majority")
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}...`);
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}...`);
     });
     console.log("Connected to database!");
   })

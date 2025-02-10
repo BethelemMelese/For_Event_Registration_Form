@@ -232,12 +232,12 @@ body {
 .header-content {
   background: linear-gradient(
     50deg,
-    #59eb1f94,
+    #407BFF,
     #ffff,
     #ffff,
     #ffff,
     #ffff,
-    #59eb1f94
+    #407BFF
   );
   height: 1vh;
   padding: 4% 4%;
@@ -273,7 +273,7 @@ body {
 }
 
 /* nav bar */
-/* .nav-bar {
+.nav-bar {
   display: flex;
   margin-top: -5px;
 }
@@ -306,7 +306,7 @@ nav {
 }
 
 .nav-item-menu .nav-item:hover {
-  border-bottom: 2px solid #47d50f;
+  border-bottom: 2px solid #407BFF;
   color: #000;
 }
 
@@ -315,7 +315,7 @@ nav {
   color: #fff;
   padding: 8px;
   border-radius: 5px;
-} */
+}
 
 /* Main body */
 
