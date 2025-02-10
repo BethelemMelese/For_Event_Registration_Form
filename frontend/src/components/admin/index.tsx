@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Card, GetProp, Table, TableProps } from "antd";
-import { Avatar, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import image from "../../images/Events-amico.png";
 
 type TablePaginationConfig = Exclude<
@@ -27,9 +27,6 @@ const AdminPanel = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<DataType[]>();
   const [loading, setLoading] = useState(false);
-  const [dataSource, setDataSource] = useState<any>([]); // to set the response data and display on the table
-  const [viewMode, setViewMode] = useState("view"); // to make change of the view for create and edit
-  const [detailMode, setDetailMode] = useState("view");
   const [tableParams, setTableParams] = useState<TableParams>({
     pagination: {
       current: 1,
