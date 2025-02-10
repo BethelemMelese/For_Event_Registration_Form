@@ -15,7 +15,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #59eb1f94);
+  background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #407BFF);
+  /* background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #59eb1f94); */
   height: 80vh;
   padding: 10% 10%;
   padding-left: 15%;
@@ -42,7 +43,8 @@ body {
 .hero-btn {
   list-style: none;
   text-decoration: none;
-  background: #47d50f;
+  /* background: #47d50f; */
+  background: #407BFF;
   color: #ffff;
   padding: 12px 24px;
   font-size: 1rem;
@@ -107,7 +109,8 @@ body {
 .nav-links li:hover {
   color: #000;
   border-radius: 2px;
-  border-bottom: 2px solid #47d50f;
+  /* border-bottom: 2px solid #47d50f; */
+  border-bottom: 2px solid #407BFF;
 }
 
 .speakers,
@@ -148,7 +151,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 30px;
+  gap: 50px;
   margin-left: -50px;
 }
 
@@ -168,6 +171,7 @@ body {
 .form-card {
   margin: 0px auto;
   margin-top: -50px;
+  margin-left: -100px;
   background: white;
   border-radius: 10px;
   width: 50%;
@@ -188,7 +192,7 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
-  width: 200%;
+  width: 150%;
 }
 
 .input-field {
@@ -199,7 +203,8 @@ body {
 }
 
 .submit-button {
-  background: #47d50f;
+  /* background: #47d50f; */
+  background: #407BFF;
   color: white;
   width: 50%;
   margin-top: 30px;
@@ -268,7 +273,7 @@ body {
 }
 
 /* nav bar */
-.nav-bar {
+/* .nav-bar {
   display: flex;
   margin-top: -5px;
 }
@@ -310,7 +315,7 @@ nav {
   color: #fff;
   padding: 8px;
   border-radius: 5px;
-}
+} */
 
 /* Main body */
 

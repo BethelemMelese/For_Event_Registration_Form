@@ -1,8 +1,8 @@
-import image from "../images/Events-amico.png";
+import image from "../images/Events-amico-purpule.png";
 import speakerOne from "../images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg";
 import speakerTwo from "../images/sergio-de-paula-c_GmwfHBDzk-unsplash.jpg";
 import speakerThree from "../images/stefan-stefancik-QXevDflbl8A-unsplash.jpg";
-import eventForm from "../images/Forms-rafiki.png";
+import eventForm from "../images/Forms-rafiki-purpole.png";
 import Navbar from "../menu/nabBar";
 
 const Home = () => {
