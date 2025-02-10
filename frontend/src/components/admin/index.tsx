@@ -49,7 +49,6 @@ const AdminPanel = ({ ...props }) => {
     type: "",
   });
 
-  console.log("dataSource...", dataSource);
 
   const toggleMenu = () => {
     setIsOpen((prevState) => !prevState);

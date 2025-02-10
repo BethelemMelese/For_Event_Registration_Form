@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const RegisterAdmin = async (req, res) => {
   try {
-    console.log("req.body...",req.body);
+    console.log("req.body...", req.body);
     const saltRounds = 10;
     const password = bcrypt.hashSync(req.body.password, saltRounds);
     const admin = await Admin.create({
@@ -24,9 +24,10 @@ const RegisterAdmin = async (req, res) => {
 
 const LoginAdmin = async (req, res) => {
   try {
+    console.log("req.body...",req.body);
     const { userName, password } = req.body;
-    const Admin = await Admin.findOne({ userName });
-    if (!Admin) {
+    const admin = await Admin.findOne({ userName });
+    if (!admin) {
       return res
         .status(404)
         .json({ message: "Admin is not Found, Please insert correctly !" });
@@ -34,7 +35,7 @@ const LoginAdmin = async (req, res) => {
 
     const generateToken = jwt.sign(
       {
-        id: Admin._id,
+        id: admin._id,
         time: Date(),
         name: userName,
       },
@@ -44,10 +45,10 @@ const LoginAdmin = async (req, res) => {
       }
     );
 
-    const isPasswordMatch = bcrypt.compareSync(password, Admin.passwordHash);
+    const isPasswordMatch = bcrypt.compareSync(password, admin.passwordHash);
 
-    if (Admin && isPasswordMatch) {
-      await Admin.findByIdAndUpdate(Admin._id, {
+    if (admin && isPasswordMatch) {
+      await Admin.findByIdAndUpdate(admin._id, {
         token: generateToken,
       });
 
@@ -122,5 +123,5 @@ module.exports = {
   LoginAdmin,
   RegisterAdmin,
   updatePassword,
-  verificationToken
+  verificationToken,
 };

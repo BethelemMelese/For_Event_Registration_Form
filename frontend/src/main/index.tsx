@@ -11,8 +11,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { appUrl } from "../appurl";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",

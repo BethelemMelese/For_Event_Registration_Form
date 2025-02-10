@@ -1,38 +1,30 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Controls from "../../commonComponent/Controls";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Form } from "../../commonComponent/Form";
 import { appUrl } from "../../appurl";
 import axios from "axios";
 import Notification from "../../commonComponent/notification";
 import image from "../../images/Reset password-rafiki.png";
 
-const initialState: LOGINSTATE = {
-  username: "",
-  password: "",
-};
-
-interface LOGINSTATE {
-  username: string;
-  password: string;
-}
 
 const Login = () => {
   const navigate = useNavigate();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const validationSchema = Yup.object().shape({
-    username: Yup.string().required("Username is required"),
-    password: Yup.string()
-      .min(8, "A Password can't insert less than 8 Characters")
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/,
-        "Must Contain at least 8 Characters, One Uppercase,One Lowercase, One Number and One Special Case Character (!@#$%^&*)"
-      )
-      .required("Password is Required"),
+  const [formData, setFormData] = useState({
+    userName: "",
+    password: "",
   });
+
+  const validateForm = () => {
+    let newErrors: { [key: string]: string } = {};
+    if (!formData.userName) newErrors.userName = "Username is required";
+    if (!formData.password) newErrors.password = "Password is required";
+    if (formData.password.length < 6)
+      newErrors.password = "Password must be at least 6 characters";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -44,12 +36,11 @@ const Login = () => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: response.message,
+      message: "You Sign In Successfully!",
     });
     setTimeout(() => {
       localStorage.setItem("token", response.token);
-      localStorage.setItem("permission", response.userPermissions);
-      setIsSubmitting(false);
+      navigate("/forEvent/adminpanel")
     }, 2000);
   };
 
@@ -60,27 +51,22 @@ const Login = () => {
       type: "error",
     });
     setTimeout(() => {
-      setIsSubmitting(false);
     }, 2000);
   };
 
-  const formik = useFormik({
-    initialValues: initialState,
-    onSubmit: (values) => {
-      setIsSubmitting(true);
-      axios
-        .post(appUrl + "admins/login", values)
-        .then((response) => onLoginSuccess(response.data))
-        .catch((error) => onLoginError(error.response.data.message));
-    },
-    validationSchema: validationSchema,
-  });
-
-  const handleKeyPress = (event: any) => {
-    if (event.key === "Enter") {
-      formik.handleSubmit();
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    axios
+      .post(appUrl + "admin/login/",formData)
+      .then((response) => onLoginSuccess(response.data))
+      .catch((error) => onLoginError(error.response.data.message));
+  };
+
 
   return (
     <>
@@ -94,26 +80,36 @@ const Login = () => {
           {/* Right Side - Login Form */}
           <div className="login-form">
             <h2>Sign In</h2>
-            <form>
-              <label htmlFor="username">Username</label>
-              <input
-                type="text"
-                id="username"
-                placeholder="Enter username"
-                {...formik.getFieldProps("username")}
-                // {
-                //   formik.touched.username && formik.errors.username
-                //     ? formik.errors.username
-                //     : ""
-                // }
-              />
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  className="input-field"
+                  type="text"
+                  name="userName"
+                  placeholder="Username"
+                  value={formData.userName}
+                  onChange={handleChange}
+                />
+                {errors.userName && (
+                  <span className="error">{errors.userName}</span>
+                )}
+              </div>
 
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter password"
-              />
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  className="input-field"
+                  type="text"
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+                {errors.password && (
+                  <span className="error">{errors.password}</span>
+                )}
+              </div>
 
               <button type="submit">Sign In</button>
             </form>
