@@ -228,8 +228,8 @@ const AdminPanel = ({ ...props }) => {
           key: "2",
           label: (
             <CSVLink
-              filename="Campus in Bonga University "
-              title="List of Campus"
+              filename="Grand Habesha Business Event"
+              title="List of Participant"
               data={execl}
               headers={Execlheaders}
             >
