@@ -33,10 +33,10 @@
     flex-direction: column;
     text-align: center;
     margin-top: 20%;
+    position: relative;
   }
 
   .hero-content {
-    /* margin-top: 20%; */
     margin-bottom: 20px;
   }
 
@@ -71,16 +71,25 @@
     display: block;
   }
 
-  .form-card {
+  .form-card form {
     display: block;
+    flex-direction: row;
     padding: 10px;
   }
 
-  .form-grid{
-    /* display: block; */
+  .form-grid {
+    /* padding: 10px; */
+    margin: 0;
+    grid-template-columns: none;
   }
 
-  .form-group {
-    display: block;
+  .form-image img {
+    display: none;
+  }
+
+  .submit-button {
+    width: 150%;
+    margin: 0px auto;
+    margin-left: 100%;
   }
 }

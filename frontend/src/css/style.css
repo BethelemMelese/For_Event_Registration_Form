@@ -16,7 +16,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #407bff);
+  background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #0B3289);
   height: 80vh;
   padding: 10% 10%;
   padding-left: 15%;
@@ -44,7 +44,7 @@ body {
   list-style: none;
   text-decoration: none;
   /* background: #47d50f; */
-  background: #407bff;
+  background: #0B3289;
   color: #ffff;
   padding: 12px 24px;
   font-size: 1rem;
@@ -123,7 +123,7 @@ body {
   color: #000;
   border-radius: 2px;
   /* border-bottom: 2px solid #47d50f; */
-  border-bottom: 2px solid #407bff;
+  border-bottom: 2px solid #0B3289;
 }
 
 .speakers,
@@ -229,13 +229,10 @@ body {
   display: flex;
 }
 
-.input-div {
-  /* width: 10%; */
-}
 
 .submit-button {
   /* background: #47d50f; */
-  background: #407bff;
+  background: #0B3289;
   color: white;
   width: 50%;
   margin-top: 30px;
@@ -263,12 +260,12 @@ body {
 .header-content {
   background: linear-gradient(
     50deg,
-    #407bff,
+    #0B3289,
     #ffff,
     #ffff,
     #ffff,
     #ffff,
-    #407bff
+    #0B3289
   );
   height: 1vh;
   padding: 4%;
@@ -336,7 +333,7 @@ nav {
 }
 
 .nav-item-menu .nav-item:hover {
-  border-bottom: 2px solid #407bff;
+  border-bottom: 2px solid #0B3289;
   color: #000;
 }
 
@@ -407,7 +404,7 @@ nav {
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin-right: 10%;
+  margin-right: 20%;
 }
 
 .login-form h2 {
