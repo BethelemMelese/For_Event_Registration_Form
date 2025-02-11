@@ -5,11 +5,14 @@ import speakerThree from "../images/stefan-stefancik-QXevDflbl8A-unsplash.jpg";
 import eventForm from "../images/Forms-rafiki-purpole.png";
 import Navbar from "../menu/nabBar";
 import Notification from "../commonComponent/notification";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { appUrl } from "../appurl";
 
 const Home = () => {
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [response, setResponse] = useState<any>([]);
+  console.log("response...", response);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,7 +22,7 @@ const Home = () => {
     city: "",
     profession: "",
   });
-  
+
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -46,7 +49,13 @@ const Home = () => {
     setTimeout(() => {}, 2000);
   };
 
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const onFetchError = (response: any) => {
+    setNotify({
+      isOpen: true,
+      type: "error",
+      message: response,
+    });
+  };
 
   const validateForm = () => {
     let newErrors: { [key: string]: string } = {};
@@ -77,6 +86,13 @@ const Home = () => {
       .catch((error) => onRegisterError(error.response.data.message));
   };
 
+  useEffect(() => {
+    axios
+      .get(appUrl + "speakers/allSpeaker")
+      .then((response) => setResponse(response.data))
+      .catch((error) => onFetchError(error.response.data.message));
+  }, []);
+
   return (
     <div>
       <Navbar />
@@ -100,7 +116,23 @@ const Home = () => {
 
       <section id="speakers" className="speakers">
         <h2>Expert Speakers</h2>
-        <div className="speaker-list">
+        {response.length != 0 &&
+          response.map((item: any) => {
+            return (
+              <div className="speaker-list">
+                <div className="speaker-card">
+                  <img
+                    src={item.speakerImage}
+                    alt="Speaker 1"
+                    className="speaker-img"
+                  />
+                  <h3>{item.title}</h3>
+                  <p>{item.speakerRole}</p>
+                </div>
+              </div>
+            );
+          })}
+        {/* <div className="speaker-list">
           <div className="speaker-card">
             <img src={speakerOne} alt="Speaker 1" className="speaker-img" />
             <h3>Speaker Name</h3>
@@ -116,7 +148,27 @@ const Home = () => {
             <h3>Speaker Name</h3>
             <p>Entrepreneur</p>
           </div>
-        </div>
+          <div className="speaker-card">
+            <img src={speakerThree} alt="Speaker 2" className="speaker-img" />
+            <h3>Speaker Name</h3>
+            <p>Entrepreneur</p>
+          </div>
+          <div className="speaker-card">
+            <img src={speakerThree} alt="Speaker 2" className="speaker-img" />
+            <h3>Speaker Name</h3>
+            <p>Entrepreneur</p>
+          </div>
+          <div className="speaker-card">
+            <img src={speakerThree} alt="Speaker 2" className="speaker-img" />
+            <h3>Speaker Name</h3>
+            <p>Entrepreneur</p>
+          </div>
+          <div className="speaker-card">
+            <img src={speakerThree} alt="Speaker 2" className="speaker-img" />
+            <h3>Speaker Name</h3>
+            <p>Entrepreneur</p>
+          </div>
+        </div> */}
       </section>
       <section id="registration" className="registration">
         <h2>Register for the Event</h2>

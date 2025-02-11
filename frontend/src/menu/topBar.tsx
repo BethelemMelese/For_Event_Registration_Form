@@ -44,6 +44,15 @@ const TopBar = ({ ...props }) => {
                 </li>
                 <li>
                   <NavLink
+                    to="/forEvent/speakers"
+                    className="nav-item"
+                    onClick={toggleMenu}
+                  >
+                    Manager Speakers
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
                     to="/forEvent/changePassword"
                     className="nav-item"
                     onClick={toggleMenu}

@@ -7,6 +7,7 @@ const port = 5000; // You can choose any port number you prefer.
 
 const admin = require("./routes/admin.router.js");
 const user = require("./routes/user.router.js");
+const speaker = require("./routes/speakers.router.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -52,10 +53,6 @@ app.get("/", (req, res) => {
   res.send("Hello, Express.js with MongoDB!");
 });
 
-// routes
-app.use("/api/admin", admin);
-app.use("/api/users", user);
-
 // Connection with Mongodb Database and run the server
 let PORT = process.env.PORT || 5000;
 mongoose
@@ -71,3 +68,8 @@ mongoose
   .catch((error) => {
     console.log("Connection failed!", error);
   });
+
+// routes
+app.use("/api/admin", admin);
+app.use("/api/users", user);
+app.use("/api/speakers", speaker);

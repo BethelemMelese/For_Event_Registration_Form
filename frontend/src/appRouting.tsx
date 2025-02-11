@@ -6,6 +6,7 @@ import Layout from "./menu/layout";
 import Home from "./main/index";
 import AdminPanel from "./components/admin";
 import ChangePassword from "./components/changePassword";
+import Speakers from "./components/speakers";
 import "./css/style.css";
 import "./css/media.query.css";
 import "./App.css";
@@ -20,6 +21,7 @@ function AppRoute() {
         <Route path="forEvent" element={<AutoRout component={Layout} />}>
           <Route path="adminPanel" element={<AdminPanel />} />
           <Route path="changePassword" element={<ChangePassword />} />
+          <Route path="speakers" element={<Speakers />} />
         </Route>
       </Routes>
     </div>

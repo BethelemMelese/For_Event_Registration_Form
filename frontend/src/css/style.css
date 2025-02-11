@@ -1,4 +1,3 @@
-
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
@@ -16,7 +15,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #0B3289);
+  background: linear-gradient(-50deg, #ffff, #ffff, #ffff, #ffff, #0b3289);
   height: 80vh;
   padding: 10% 10%;
   padding-left: 15%;
@@ -44,7 +43,7 @@ body {
   list-style: none;
   text-decoration: none;
   /* background: #47d50f; */
-  background: #0B3289;
+  background: #0b3289;
   color: #ffff;
   padding: 12px 24px;
   font-size: 1rem;
@@ -123,7 +122,7 @@ body {
   color: #000;
   border-radius: 2px;
   /* border-bottom: 2px solid #47d50f; */
-  border-bottom: 2px solid #0B3289;
+  border-bottom: 2px solid #0b3289;
 }
 
 .speakers,
@@ -138,12 +137,46 @@ body {
 }
 
 .speaker-list {
+  width: 80%;
+  overflow-x: auto;
+  white-space: nowrap;
   display: flex;
-  justify-content: center;
-  gap: 100px;
+  gap: 50px;
+  padding: 10px;
+  scrollbar-width: thin;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  margin: 0px auto;
+  scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE & Edge */
+}
+
+.speaker-card::-webkit-scrollbar {
+  display: none;
 }
 
 .speaker-card {
+  flex: 0 0 auto; /* Prevents cards from shrinking */
+  width: 250px; /* Fixed width */
+  height: 300px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: start; /* Makes scrolling snap to each card */
+}
+
+.speaker-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
+/* .speaker-card {
   background: white;
   padding: 15px;
   border-radius: 10px;
@@ -157,7 +190,7 @@ body {
   height: 200px;
   object-fit: cover;
   border-radius: 50%;
-}
+} */
 
 /* Registration Section*/
 .form {
@@ -229,10 +262,9 @@ body {
   display: flex;
 }
 
-
 .submit-button {
   /* background: #47d50f; */
-  background: #0B3289;
+  background: #0b3289;
   color: white;
   width: 50%;
   margin-top: 30px;
@@ -260,12 +292,12 @@ body {
 .header-content {
   background: linear-gradient(
     50deg,
-    #0B3289,
+    #0b3289,
     #ffff,
     #ffff,
     #ffff,
     #ffff,
-    #0B3289
+    #0b3289
   );
   height: 1vh;
   padding: 4%;
@@ -333,7 +365,7 @@ nav {
 }
 
 .nav-item-menu .nav-item:hover {
-  border-bottom: 2px solid #0B3289;
+  border-bottom: 2px solid #0b3289;
   color: #000;
 }
 
@@ -490,4 +522,13 @@ nav {
 .changePassword-form button:hover {
   background: #fbc02d;
   color: #000;
+}
+
+.btn-form {
+  margin-top: 5%;
+}
+
+.text-danger {
+  color: #d32f2f;
+  font-size: small;
 }
