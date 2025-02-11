@@ -116,10 +116,10 @@ const Home = () => {
 
       <section id="speakers" className="speakers">
         <h2>Expert Speakers</h2>
-        {response.length != 0 &&
-          response.map((item: any) => {
-            return (
-              <div className="speaker-list">
+        <div className="speaker-list">
+          {response.length != 0 &&
+            response.map((item: any) => {
+              return (
                 <div className="speaker-card">
                   <img
                     src={item.speakerImage}
@@ -129,46 +129,9 @@ const Home = () => {
                   <h3>{item.title}</h3>
                   <p>{item.speakerRole}</p>
                 </div>
-              </div>
-            );
-          })}
-        {/* <div className="speaker-list">
-          <div className="speaker-card">
-            <img src={speakerOne} alt="Speaker 1" className="speaker-img" />
-            <h3>Speaker Name</h3>
-            <p>Business Expert</p>
-          </div>
-          <div className="speaker-card">
-            <img src={speakerTwo} alt="Speaker 2" className="speaker-img" />
-            <h3>Speaker Name</h3>
-            <p>Entrepreneur</p>
-          </div>
-          <div className="speaker-card">
-            <img src={speakerThree} alt="Speaker 2" className="speaker-img" />
-            <h3>Speaker Name</h3>
-            <p>Entrepreneur</p>
-          </div>
-          <div className="speaker-card">
-            <img src={speakerThree} alt="Speaker 2" className="speaker-img" />
-            <h3>Speaker Name</h3>
-            <p>Entrepreneur</p>
-          </div>
-          <div className="speaker-card">
-            <img src={speakerThree} alt="Speaker 2" className="speaker-img" />
-            <h3>Speaker Name</h3>
-            <p>Entrepreneur</p>
-          </div>
-          <div className="speaker-card">
-            <img src={speakerThree} alt="Speaker 2" className="speaker-img" />
-            <h3>Speaker Name</h3>
-            <p>Entrepreneur</p>
-          </div>
-          <div className="speaker-card">
-            <img src={speakerThree} alt="Speaker 2" className="speaker-img" />
-            <h3>Speaker Name</h3>
-            <p>Entrepreneur</p>
-          </div>
-        </div> */}
+              );
+            })}
+        </div>
       </section>
       <section id="registration" className="registration">
         <h2>Register for the Event</h2>
