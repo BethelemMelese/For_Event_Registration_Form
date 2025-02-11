@@ -111,7 +111,7 @@ const deleteSpeakers = async (req, res) => {
       return res.status(404).json({ message: "Speaker not Found !" });
     }
     await Speaker.findByIdAndDelete(id);
-    await fs.promises.unlink(path + speaker.title);
+    await fs.remove(path + speaker.title);
 
     res.status(200).json({ message: "Speaker is Successfully Delete !" });
   } catch (error) {
