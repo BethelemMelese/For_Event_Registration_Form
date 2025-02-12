@@ -1,16 +1,15 @@
 import image from "../images/Events-amico-purpule.png";
-import speakerOne from "../images/christopher-campbell-rDEOVtE7vOs-unsplash.jpg";
-import speakerTwo from "../images/sergio-de-paula-c_GmwfHBDzk-unsplash.jpg";
-import speakerThree from "../images/stefan-stefancik-QXevDflbl8A-unsplash.jpg";
 import eventForm from "../images/Forms-rafiki-purpole.png";
 import Navbar from "../menu/nabBar";
 import Notification from "../commonComponent/notification";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { appUrl } from "../appurl";
+import { Button } from "@mui/material";
 
 const Home = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [response, setResponse] = useState<any>([]);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -35,6 +34,7 @@ const Home = () => {
       message: "You are Registered Successfully!",
     });
     setTimeout(() => {
+      setIsSubmitting(false);
       window.location.reload();
     }, 2000);
   };
@@ -45,7 +45,9 @@ const Home = () => {
       message: action,
       type: "error",
     });
-    setTimeout(() => {}, 2000);
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2000);
   };
 
   const onFetchError = (response: any) => {
@@ -75,6 +77,7 @@ const Home = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
+    setIsSubmitting(true);
     axios
       .post(appUrl + "users/registerUser/", formData)
       .then((response) => onRegisterSuccess(response.data))
@@ -234,9 +237,19 @@ const Home = () => {
                 </div>
               </div>
 
-              <button type="submit" className="submit-button">
-                Submit
-              </button>
+              {isSubmitting ? (
+                <Button
+                  className="submit-button"
+                  variant="contained"
+                  disabled={isSubmitting}
+                >
+                  Submitting...
+                </Button>
+              ) : (
+                <button type="submit" className="submit-button">
+                  Submit
+                </button>
+              )}
             </form>
           </div>
         </div>
