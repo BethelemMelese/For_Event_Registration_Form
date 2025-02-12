@@ -12,7 +12,6 @@ import { appUrl } from "../appurl";
 const Home = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [response, setResponse] = useState<any>([]);
-  console.log("response...", response);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -65,10 +64,6 @@ const Home = () => {
     if (!formData.phone) newErrors.phone = "Phone Number is required";
     else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email))
       newErrors.email = "Invalid email format";
-    if (!formData.city) newErrors.city = "City is required";
-    if (!formData.country) newErrors.country = "Country is required";
-    if (!formData.profession) newErrors.profession = "Profession is required";
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
