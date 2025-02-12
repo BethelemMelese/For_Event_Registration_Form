@@ -8,7 +8,7 @@ const userSchema = mongoose.Schema(
     },
     lastName: {
       type: String,
-      required: false,
+      required: [true, "Please insert First Name"],
     },
     fullName: {
       type: String,
@@ -16,11 +16,11 @@ const userSchema = mongoose.Schema(
     },
     email: {
       type: String,
-      required: false,
+      required: [true, "Please insert First Name"],
     },
     phone: {
       type: String,
-      required: false,
+      required: [true, "Please insert First Name"],
     },
     profession: {
       type: String,
