@@ -53,6 +53,15 @@ const TopBar = ({ ...props }) => {
                 </li>
                 <li>
                   <NavLink
+                    to="/forEvent/managerMainSection"
+                    className="nav-item"
+                    onClick={toggleMenu}
+                  >
+                    Manage Hero Section
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
                     to="/forEvent/changePassword"
                     className="nav-item"
                     onClick={toggleMenu}

@@ -8,6 +8,7 @@ const port = 5000; // You can choose any port number you prefer.
 const admin = require("./routes/admin.router.js");
 const user = require("./routes/user.router.js");
 const speaker = require("./routes/speakers.router.js");
+const heroSection = require("./routes/heroSection.router.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -73,3 +74,4 @@ mongoose
 app.use("/api/admin", admin);
 app.use("/api/users", user);
 app.use("/api/speakers", speaker);
+app.use("/api/heroSection", heroSection);

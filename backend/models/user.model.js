@@ -24,15 +24,19 @@ const userSchema = mongoose.Schema(
     },
     profession: {
       type: String,
-      required: false,
+      required: [true, "Please insert Profession"],
     },
     country: {
       type: String,
-      required: false,
+      required: [true, "Please insert Country"],
     },
     city: {
       type: String,
-      required: false,
+      required: [true, "Please insert City"],
+    },
+    attendeeType: {
+      type: String,
+      required: [true, "Please insert Attendee Type"],
     },
   },
   { timestamp: true }

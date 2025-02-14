@@ -235,6 +235,13 @@ const Home = () => {
                   />
                   {errors.city && <span className="error">{errors.city}</span>}
                 </div>
+
+                <div className="form-group">
+                  <select className="input-field">
+                    <option>Participant</option>
+                    <option>Vender</option>
+                  </select>
+                </div>
               </div>
 
               {isSubmitting ? (
