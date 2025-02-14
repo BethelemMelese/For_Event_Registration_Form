@@ -5,7 +5,6 @@ import axios from "axios";
 import Notification from "../../commonComponent/notification";
 import image from "../../images/Tablet login-rafiki.png";
 
-
 const Login = () => {
   const navigate = useNavigate();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -41,7 +40,7 @@ const Login = () => {
     setTimeout(() => {
       localStorage.setItem("token", response.token);
       localStorage.setItem("role", response.role);
-      navigate("/forEvent/adminpanel")
+      navigate("/forEvent/adminpanel");
     }, 2000);
   };
 
@@ -51,8 +50,7 @@ const Login = () => {
       message: action,
       type: "error",
     });
-    setTimeout(() => {
-    }, 2000);
+    setTimeout(() => {}, 2000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,11 +61,10 @@ const Login = () => {
     e.preventDefault();
     if (!validateForm()) return;
     axios
-      .post(appUrl + "admin/login/",formData)
+      .post(appUrl + "admin/login/", formData)
       .then((response) => onLoginSuccess(response.data))
       .catch((error) => onLoginError(error.response.data.message));
   };
-
 
   return (
     <>
@@ -109,7 +106,6 @@ const Login = () => {
                   <span className="error">{errors.password}</span>
                 )}
               </div>
-
               <button type="submit">Sign In</button>
             </form>
           </div>

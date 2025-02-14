@@ -110,19 +110,24 @@ const Home = () => {
       <Navbar />
       <section id="home" className="hero-section">
         <div className="hero">
-          <div className="hero-content">
-            <h1>Join the Grand Habesha Business Event </h1>
-            <p>
-              Expand your network and grow your business with industry leaders.
-            </p>
-            <a href="#registration" className="hero-btn">
-              Register Now
-            </a>
-          </div>
+          {responseHero.length != 0 &&
+            responseHero.map((item: any) => {
+              return (
+                <>
+                  <div className="hero-content">
+                    <h1>{item.headerTitle}</h1>
+                    <p>{item.subTitle}</p>
+                    <a href="#registration" className="hero-btn">
+                      Register Now
+                    </a>
+                  </div>
 
-          <div className="hero-image">
-            <img src={image} alt="Business Event" />
-          </div>
+                  <div className="hero-image">
+                    <img src={item.heroImage} alt="Business Event" />
+                  </div>
+                </>
+              );
+            })}
         </div>
       </section>
 

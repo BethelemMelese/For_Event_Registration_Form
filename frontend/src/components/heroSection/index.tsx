@@ -104,18 +104,6 @@ const HeroSection = () => {
                 <EditOutlined />
               </IconButton>
             </Tooltip>
-            |
-            <Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  showConfirm(record.id);
-                }}
-                aria-label="delete"
-                color="error"
-              >
-                <DeleteForeverIcon />
-              </IconButton>
-            </Tooltip>
           </Space>
         );
       },
@@ -219,18 +207,6 @@ const HeroSection = () => {
       {viewMode == "view" && (
         <Card
           title={<h2>Manage Hero Section</h2>}
-          extra={
-            <Button
-              variant="contained"
-              color="success"
-              size="small"
-              onClick={() => {
-                setViewMode("new");
-              }}
-            >
-              Add Hero
-            </Button>
-          }
           className="main-content"
         >
           <div className="list_data">

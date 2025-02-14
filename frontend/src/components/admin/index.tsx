@@ -76,6 +76,11 @@ const AdminPanel = ({ ...props }) => {
       dataIndex: "profession",
       sorter: true,
     },
+    {
+      title: "Attendee Type",
+      dataIndex: "attendeeType",
+      sorter: true,
+    },
   ];
 
   const handleTableChange: TableProps["onChange"] = (
@@ -154,6 +159,10 @@ const AdminPanel = ({ ...props }) => {
         name: "Profession",
         key: "profession",
       },
+      {
+        name: "Attendee Type",
+        key: "attendeeType",
+      },
     ];
     const pdfConfig: PDF = {
       fileName: "Grand Habesha Business Event",
@@ -194,6 +203,10 @@ const AdminPanel = ({ ...props }) => {
     {
       label: "Profession",
       key: "profession",
+    },
+    {
+      label: "Attendee Type",
+      key: "attendeeType",
     },
   ];
 

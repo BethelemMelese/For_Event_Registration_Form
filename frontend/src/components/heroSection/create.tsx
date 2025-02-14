@@ -22,7 +22,7 @@ const initialState: ItemState = {
 };
 const AddHeroSection = ({ ...props }) => {
   const [viewMode, setViewMode] = useState(props.viewMode);
-  const [selectedSpeaker, setSelectedSpeaker] = useState(props.selectedSpeaker);
+  const [selectedHeroSection, setSelectedHeroSection] = useState(props.selectedHeroSection);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState<any>();
   const [validFileFormat, setValidFileFormat] = useState(false);
@@ -35,19 +35,19 @@ const AddHeroSection = ({ ...props }) => {
 
   useEffect(() => {
     setViewMode(props.viewMode);
-    setSelectedSpeaker(props.selectedSpeaker);
+    setSelectedHeroSection(props.selectedHeroSection);
     if (props.viewMode === "new") {
       formik.resetForm({
         values: initialState,
       });
     }
-  }, [props.viewMode, props.selectedSpeaker]);
+  }, [props.viewMode, props.selectedHeroSection]);
 
   const onCreateSuccess = () => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "Speaker is Successfully Added !",
+      message: "Hero Section is Successfully Added !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -70,7 +70,7 @@ const AddHeroSection = ({ ...props }) => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "Speaker is Successfully Updated !",
+      message: "Hero Section is Successfully Updated !",
     });
     setTimeout(() => {
       setIsSubmitting(false);
@@ -95,7 +95,7 @@ const AddHeroSection = ({ ...props }) => {
   });
 
   const formik = useFormik({
-    initialValues: selectedSpeaker,
+    initialValues: selectedHeroSection,
     onSubmit: (values) => {
       if (viewMode == "new") {
         if (fileList == null) {
@@ -122,7 +122,7 @@ const AddHeroSection = ({ ...props }) => {
         const formData = new FormData();
         formData.append(
           "file",
-          fileList == null ? selectedSpeaker.heroImage : fileList
+          fileList == null ? selectedHeroSection.heroImage : fileList
         );
         formData.append("headerTitle", values.headerTitle);
         formData.append("subTitle", values.subTitle);
@@ -132,7 +132,7 @@ const AddHeroSection = ({ ...props }) => {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
-          .put(appUrl + `heroSections/${selectedSpeaker.id}`, formData)
+          .put(appUrl + `heroSections/${selectedHeroSection.id}`, formData)
           .then(() => onUpdateSuccess())
           .catch((error) => onUpdateError(error.response.data.message));
       }
@@ -186,7 +186,7 @@ const AddHeroSection = ({ ...props }) => {
           {viewMode != "new" && (
             <Avatar
               sx={{ width: 56, height: 56, marginBottom: 5 }}
-              src={selectedSpeaker.speakerImage}
+              src={selectedHeroSection.heroImage}
             ></Avatar>
           )}
           <Grid container spacing={2}>
@@ -195,6 +195,7 @@ const AddHeroSection = ({ ...props }) => {
                 required
                 id="headerTitle"
                 label="Header Title"
+                multiline
                 {...formik.getFieldProps("headerTitle")}
                 error={
                   formik.touched.headerTitle && formik.errors.headerTitle
