@@ -74,4 +74,4 @@ mongoose
 app.use("/api/admin", admin);
 app.use("/api/users", user);
 app.use("/api/speakers", speaker);
-app.use("/api/heroSection", heroSection);
+app.use("/api/heroSections", heroSection);

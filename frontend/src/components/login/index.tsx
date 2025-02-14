@@ -36,7 +36,7 @@ const Login = () => {
     setNotify({
       isOpen: true,
       type: "success",
-      message: "You Sign In Successfully!",
+      message: "You Signed In Successfully!",
     });
     setTimeout(() => {
       localStorage.setItem("token", response.token);

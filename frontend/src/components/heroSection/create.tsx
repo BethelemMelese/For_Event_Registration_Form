@@ -113,7 +113,7 @@ const AddHeroSection = ({ ...props }) => {
                 Authorization: `Bearer ${localStorage.getItem("token")}`,
               },
             })
-            .post(appUrl + "speakers", formData)
+            .post(appUrl + "heroSections", formData)
             .then(() => onCreateSuccess())
             .catch((error) => onCreateError(error.response.data.message));
         }
@@ -122,7 +122,7 @@ const AddHeroSection = ({ ...props }) => {
         const formData = new FormData();
         formData.append(
           "file",
-          fileList == null ? selectedSpeaker.speakerImage : fileList
+          fileList == null ? selectedSpeaker.heroImage : fileList
         );
         formData.append("headerTitle", values.headerTitle);
         formData.append("subTitle", values.subTitle);
@@ -132,7 +132,7 @@ const AddHeroSection = ({ ...props }) => {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
-          .put(appUrl + `speakers/${selectedSpeaker.id}`, formData)
+          .put(appUrl + `heroSections/${selectedSpeaker.id}`, formData)
           .then(() => onUpdateSuccess())
           .catch((error) => onUpdateError(error.response.data.message));
       }

@@ -11,6 +11,7 @@ const Home = () => {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [response, setResponse] = useState<any>([]);
+  const [responseHero, setResponseHero] = useState<any>([]);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,6 +20,7 @@ const Home = () => {
     country: "",
     city: "",
     profession: "",
+    attendeeType: "",
   });
 
   const [notify, setNotify] = useState({
@@ -64,13 +66,18 @@ const Home = () => {
     if (!formData.lastName) newErrors.lastName = "Last Name is required";
     if (!formData.email) newErrors.email = "Email is required";
     if (!formData.phone) newErrors.phone = "Phone Number is required";
+    if (!formData.country) newErrors.country = "Country is required";
+    if (!formData.city) newErrors.city = "City is required";
+    if (!formData.profession) newErrors.profession = "Profession is required";
+    if (!formData.attendeeType)
+      newErrors.attendeeType = "Attendee Type is required";
     else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email))
       newErrors.email = "Invalid email format";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: any) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -88,6 +95,13 @@ const Home = () => {
     axios
       .get(appUrl + "speakers/allSpeaker")
       .then((response) => setResponse(response.data))
+      .catch((error) => onFetchError(error.response.data.message));
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(appUrl + "heroSections/get")
+      .then((response) => setResponseHero(response.data))
       .catch((error) => onFetchError(error.response.data.message));
   }, []);
 
@@ -237,10 +251,21 @@ const Home = () => {
                 </div>
 
                 <div className="form-group">
-                  <select className="input-field">
-                    <option>Participant</option>
-                    <option>Vender</option>
+                  <select
+                    className="input-field"
+                    name="attendeeType"
+                    value={formData.attendeeType}
+                    onChange={(e) => handleChange(e)}
+                  >
+                    <option value="" disabled selected>
+                      Choose Attendee Type
+                    </option>
+                    <option value="Participant">Participant</option>
+                    <option value="Vender">Vender</option>
                   </select>
+                  {errors.attendeeType && (
+                    <span className="error">{errors.attendeeType}</span>
+                  )}
                 </div>
               </div>
 

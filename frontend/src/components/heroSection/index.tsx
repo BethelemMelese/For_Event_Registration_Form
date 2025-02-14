@@ -132,7 +132,6 @@ const HeroSection = () => {
       filters,
       ...sorter,
     });
-    // `dataSource` is useless since `pageSize` changed
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
       setData([]);
     }
@@ -146,7 +145,7 @@ const HeroSection = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
-      .get(appUrl + `heroSection`)
+      .get(appUrl + `heroSections`)
       .then((res) => {
         setLoading(false);
         setDataSource(res.data);
@@ -199,7 +198,7 @@ const HeroSection = () => {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           })
-          .delete(appUrl + `heroSection/${value}`)
+          .delete(appUrl + `heroSections/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);
           })
