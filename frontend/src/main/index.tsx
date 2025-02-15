@@ -1,4 +1,4 @@
-import image from "../images/Events-amico-purpule.png";
+import image from "../images/photo_2025-02-15_23-54-03.jpg";
 import eventForm from "../images/Forms-rafiki-purpole.png";
 import Navbar from "../menu/nabBar";
 import Notification from "../commonComponent/notification";
@@ -292,6 +292,10 @@ const Home = () => {
         </div>
         <Notification notify={notify} setNotify={setNotify} />
       </section>
+      <div className="sponsored-container">
+        <h3>Sponsored By</h3>
+        <img src={image} alt="Sponsor" className="sponsor-logo" />
+      </div>
       <div className="copyrightholder">
         <p>&copy; 2025 Grand Habesha Business Event. All rights reserved</p>
       </div>

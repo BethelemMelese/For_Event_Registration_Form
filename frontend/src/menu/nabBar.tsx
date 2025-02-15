@@ -3,6 +3,7 @@ import "../css/style.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
+import Image from "../images/photo_2025-02-15_23-54-03.jpg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,10 @@ const Navbar = () => {
           )}
         </IconButton>
       </div>
+      <div className="top-bar-logo">
+        <img alt="Egila Logo" src={Image} />
+      </div>
+
       <ul className={`nav-links ${isOpen ? "open" : ""}`}>
         <li
           onClick={() => {
