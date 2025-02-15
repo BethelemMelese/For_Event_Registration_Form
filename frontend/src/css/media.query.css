@@ -66,8 +66,8 @@
 
   .speaker-list {
     display: block;
-    /* height: 150px; */
     gap: 5px;
+    margin: 0px auto;
   }
 
   .speaker-card img {
