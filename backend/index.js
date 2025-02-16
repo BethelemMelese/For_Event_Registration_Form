@@ -57,9 +57,7 @@ app.get("/", (req, res) => {
 // Connection with Mongodb Database and run the server
 let PORT = process.env.PORT || 5000;
 mongoose
-  .connect(
-    "mongodb+srv://melesebety2673:Admin@businessevent.caewh.mongodb.net/?retryWrites=true&w=majority&appName=BusinessEvent"
-  )
+  .connect(process.env.mongoDbURL)
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server is running on PORT ${PORT}...`);
