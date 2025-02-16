@@ -86,12 +86,12 @@ body {
 }
 
 .top-bar-logo {
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .top-bar-logo img {
-  width: 30%;
-  height: 30%;
+  width: 20%;
+  height: 20%;
 }
 
 .navbar {
@@ -111,7 +111,7 @@ body {
   list-style: none;
   display: flex;
   justify-content: center;
-  gap: 40px;
+  gap: 30px;
   padding: 0;
 }
 
