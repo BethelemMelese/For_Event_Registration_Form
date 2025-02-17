@@ -29,6 +29,7 @@ const Home = () => {
     type: "",
   });
 
+
   const onRegisterSuccess = (response: any) => {
     setNotify({
       isOpen: true,
