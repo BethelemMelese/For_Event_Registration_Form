@@ -41,6 +41,7 @@ const Login = () => {
       localStorage.setItem("token", response.token);
       localStorage.setItem("role", response.role);
       navigate("/forEvent/adminpanel");
+      window.location.reload();
     }, 2000);
   };
 
