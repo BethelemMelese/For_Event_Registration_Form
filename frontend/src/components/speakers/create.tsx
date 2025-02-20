@@ -76,7 +76,7 @@ const AddSpeaker = ({ ...props }) => {
     });
     setTimeout(() => {
       setIsSubmitting(false);
-      window.location.reload();
+      // window.location.reload();
     }, 2000);
   };
 

@@ -146,7 +146,7 @@ const Home = () => {
                   />
                   <h3>{item.title}</h3>
                   <p>{item.speakerRole}</p>
-                  <p>{item.speakerDescription}</p>
+                  <p className="speaker_Description">{item.speakerDescription}</p>
                 </div>
               );
             })}
