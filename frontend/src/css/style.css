@@ -86,12 +86,12 @@ body {
 }
 
 .top-bar-logo {
-  margin-left: 5px;
+  margin-right: 20%;
 }
 
 .top-bar-logo img {
-  width: 20%;
-  height: 20%;
+  width: 30%;
+  height: 30%;
 }
 
 .navbar {
@@ -111,19 +111,21 @@ body {
   list-style: none;
   display: flex;
   justify-content: center;
-  gap: 30px;
+  gap: 50px;
   padding: 0;
+  margin-right: 10%;
 }
 
 /* Menu Items */
 .nav-links li {
-  margin-left: 50px;
+  margin-left: 20px;
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
   font-family: "Playfair Display", serif;
   color: #000;
   transition: color 0.3s ease;
+  width: 100px;
 }
 
 .nav-links li:hover {
@@ -231,7 +233,7 @@ body {
 }
 
 .form-image img {
-  max-width: 60%;
+  max-width: 50%;
   height: auto;
   margin-left: 10%;
 }

@@ -1,5 +1,5 @@
 import image from "../images/photo_2025-02-15_23-54-03.jpg";
-import eventForm from "../images/Forms-rafiki-purpole.png";
+import eventForm from "../images/photo_2025-02-20_20-29-55.jpg";
 import Navbar from "../menu/nabBar";
 import Notification from "../commonComponent/notification";
 import React, { useEffect, useState } from "react";

@@ -3,7 +3,7 @@ import "../css/style.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { IconButton } from "@mui/material";
-import Image from "../images/photo_2025-02-16_12-00-20.jpg";
+import Image from "../images/photo_2025-02-20_20-29-32.jpg";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
