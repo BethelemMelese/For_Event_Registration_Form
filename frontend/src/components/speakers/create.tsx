@@ -14,11 +14,13 @@ import Controls from "../../commonComponent/Controls";
 interface ItemState {
   title: string;
   speakerRole: string;
+  speakerDescription: string;
 }
 
 const initialState: ItemState = {
   title: "",
   speakerRole: "",
+  speakerDescription: "",
 };
 const AddSpeaker = ({ ...props }) => {
   const [viewMode, setViewMode] = useState(props.viewMode);
@@ -107,6 +109,7 @@ const AddSpeaker = ({ ...props }) => {
           formData.append("file", fileList);
           formData.append("title", values.title);
           formData.append("speakerRole", values.speakerRole);
+          formData.append("speakerDescription", values.speakerDescription);
           axios
             .create({
               headers: {
@@ -126,6 +129,7 @@ const AddSpeaker = ({ ...props }) => {
         );
         formData.append("title", values.title);
         formData.append("speakerRole", values.speakerRole);
+        formData.append("speakerDescription", values.speakerDescription);
         axios
           .create({
             headers: {
@@ -181,7 +185,7 @@ const AddSpeaker = ({ ...props }) => {
         <Form autoComplete="off" noValidate onSubmit={formik.handleSubmit}>
           {viewMode != "new" && (
             <Avatar
-              sx={{ width: 56, height: 56, marginBottom:5 }}
+              sx={{ width: 56, height: 56, marginBottom: 5 }}
               src={selectedSpeaker.speakerImage}
             ></Avatar>
           )}
@@ -203,11 +207,24 @@ const AddSpeaker = ({ ...props }) => {
               <Controls.Input
                 id="speakerRole"
                 label="Role"
-                multiline
                 {...formik.getFieldProps("speakerRole")}
                 error={
                   formik.touched.speakerRole && formik.errors.speakerRole
                     ? formik.errors.speakerRole
+                    : ""
+                }
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Controls.Input
+                id="speakerDescription"
+                label="Description"
+                multiline
+                {...formik.getFieldProps("speakerDescription")}
+                error={
+                  formik.touched.speakerDescription &&
+                  formik.errors.speakerDescription
+                    ? formik.errors.speakerDescription
                     : ""
                 }
               />

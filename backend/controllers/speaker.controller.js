@@ -13,6 +13,7 @@ const getSpeakers = async (req, res) => {
         id: value._id,
         title: value.title,
         speakerRole: value.speakerRole,
+        speakerDescription:value.speakerDescription,
         speakerImage: value.speakerImage,
       };
     });
@@ -30,6 +31,7 @@ const getSpeakersForAll = async (req, res) => {
         id: value._id,
         title: value.title,
         speakerRole: value.speakerRole,
+        speakerDescription:value.speakerDescription,
         speakerImage: value.speakerImage,
       };
     });
@@ -52,6 +54,7 @@ const addSpeakers = async (req, res) => {
       const formData = {
         title: req.body.title,
         speakerRole: req.body.speakerRole,
+        speakerDescription:req.body.speakerDescription,
         speakerImage: req.file.path,
       };
       const speaker = await Speaker.create(formData);
@@ -60,6 +63,7 @@ const addSpeakers = async (req, res) => {
         id: speaker._id,
         title: speaker.title,
         speakerRole: speaker.speakerRole,
+        speakerDescription:speaker.speakerDescription,
         speakerImage: speaker.speakerImage,
       });
     }
@@ -85,6 +89,7 @@ const updateSpeakers = async (req, res) => {
       await Speaker.findByIdAndUpdate(id, {
         title: req.body.title,
         speakerRole: req.body.speakerRole,
+        speakerDescription:req.body.speakerDescription,
         speakerImage: req.file.path,
       });
     }
@@ -94,6 +99,7 @@ const updateSpeakers = async (req, res) => {
       id: updatedSpeaker._id,
       title: updatedSpeaker.title,
       speakerRole: updatedSpeaker.speakerRole,
+      speakerDescription:updatedSpeaker.speakerDescription,
       speakerImage: updatedSpeaker.speakerImage,
     });
   } catch (error) {

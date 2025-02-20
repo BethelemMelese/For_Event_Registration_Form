@@ -10,6 +10,10 @@ const speakersSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    speakerDescription: {
+      type: String,
+      required: false,
+    },
     speakerImage: {
       type: String,
       required: [true, "Please insert the Speaker Image"],
