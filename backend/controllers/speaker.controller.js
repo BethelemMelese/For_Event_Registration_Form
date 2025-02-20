@@ -83,6 +83,7 @@ const updateSpeakers = async (req, res) => {
     if (speaker.speakerImage == req.body.file) {
       await Speaker.findByIdAndUpdate(id, {
         title: req.body.title,
+        speakerDescription:req.body.speakerDescription,
         speakerRole: req.body.speakerRole,
       });
     } else {

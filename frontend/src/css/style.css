@@ -216,6 +216,10 @@ body {
   border-radius: 50%;
 }
 
+.speaker-card p{
+  width: 80%;
+}
+
 /* Registration Section*/
 .form {
   display: flex;
