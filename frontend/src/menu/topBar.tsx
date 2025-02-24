@@ -13,8 +13,8 @@ const TopBar = ({ ...props }) => {
   };
 
   const onLogout = () => {
-    api.post("admin/logout/").then((response) => {
-      window.location.href = "/login";
+    api.post("admin/logout").then((response) => {
+      // window.location.href = "/login";
     });
   };
 

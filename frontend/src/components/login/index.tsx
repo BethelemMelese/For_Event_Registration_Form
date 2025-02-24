@@ -45,6 +45,7 @@ const Login = () => {
     setTimeout(() => {
       checkAuth();
       navigate("/forEvent/adminpanel");
+      window.location.reload();
     }, 2000);
   };
 
