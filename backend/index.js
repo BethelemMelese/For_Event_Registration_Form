@@ -17,7 +17,7 @@ const heroSection = require("./routes/heroSection.router.js");
 dotenv.config();
 
 var corsOptions = {
-  origin: "https://grandhabeshabusinessevent.com/",
+  origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
