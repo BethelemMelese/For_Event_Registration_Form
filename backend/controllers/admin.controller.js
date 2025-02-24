@@ -54,7 +54,7 @@ const LoginAdmin = async (req, res) => {
       res.cookie("token", generateToken, {
         httpOnly: true,
         secure: true,
-        sameSite: "strict",
+        sameSite: "None",
         maxAge: 3600000,
       });
       res.status(200).json({
