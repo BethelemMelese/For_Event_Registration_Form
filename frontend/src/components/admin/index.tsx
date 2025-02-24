@@ -8,6 +8,7 @@ import { PDF } from "../..//service/model/pdf";
 import axios from "axios";
 import { appUrl } from "../../appurl";
 import Notification from "../../commonComponent/notification";
+import { api } from "../../polices/api/axiosConfig";
 
 type TablePaginationConfig = Exclude<
   GetProp<TableProps, "pagination">,
@@ -101,13 +102,8 @@ const AdminPanel = ({ ...props }) => {
 
   //for get all data
   const onFetchAdmin = () => {
-    axios
-      .create({
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .get(appUrl + `users/getAllUser`)
+    api
+      .get(`users/getAllUser`)
       .then((res) => {
         setLoading(false);
         setDataSource(res.data);

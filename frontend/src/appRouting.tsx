@@ -1,7 +1,6 @@
-import { Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/login";
 import NoPermission from "./components/noPermission";
-import { AutoRout } from "./polices/AutoRoute";
 import Layout from "./menu/layout";
 import Home from "./main/index";
 import AdminPanel from "./components/admin";
@@ -11,6 +10,7 @@ import HeroSection from "./components/heroSection";
 import "./css/style.css";
 import "./css/media.query.css";
 import "./App.css";
+import { ProtectedRoute } from "./polices/ProtectedRoute";
 
 function AppRoute() {
   return (
@@ -19,7 +19,7 @@ function AppRoute() {
         <Route path="/" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="noPermission" element={<NoPermission />} />
-        <Route path="forEvent" element={<AutoRout component={Layout} />}>
+        <Route path="forEvent" element={<ProtectedRoute component={Layout} />}>
           <Route path="adminPanel" element={<AdminPanel />} />
           <Route path="changePassword" element={<ChangePassword />} />
           <Route path="speakers" element={<Speakers />} />

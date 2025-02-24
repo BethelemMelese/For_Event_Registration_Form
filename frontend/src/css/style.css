@@ -228,7 +228,7 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   max-width: 100%;
-  white-space: normal; 
+  white-space: normal;
   text-align: justify;
   padding: 20px;
 }
@@ -500,18 +500,26 @@ nav {
   border-radius: 5px;
 }
 
-.login-form button {
+.login-form button{
   width: 100%;
   padding: 10px;
-  background: #007bff;
-  color: white;
   font-size: 16px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.login-form button:hover {
+.login-form .login_unlocked {
+  background: #007bff;
+  color: white;
+}
+
+.login-form .login_locked {
+  background: #dadadb;
+  color: rgb(66, 64, 64);
+}
+
+.login-form .login_unlocked:hover {
   background: #fbc02d;
   color: #000;
 }

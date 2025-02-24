@@ -10,6 +10,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { appUrl } from "../../appurl";
 import axios from "axios";
 import Controls from "../../commonComponent/Controls";
+import { api } from "../../polices/api/axiosConfig";
 
 interface ItemState {
   title: string;
@@ -76,7 +77,7 @@ const AddSpeaker = ({ ...props }) => {
     });
     setTimeout(() => {
       setIsSubmitting(false);
-      // window.location.reload();
+      window.location.reload();
     }, 2000);
   };
 
@@ -110,13 +111,8 @@ const AddSpeaker = ({ ...props }) => {
           formData.append("title", values.title);
           formData.append("speakerRole", values.speakerRole);
           formData.append("speakerDescription", values.speakerDescription);
-          axios
-            .create({
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            })
-            .post(appUrl + "speakers", formData)
+          api
+            .post("speakers", formData)
             .then(() => onCreateSuccess())
             .catch((error) => onCreateError(error.response.data.message));
         }
@@ -130,13 +126,8 @@ const AddSpeaker = ({ ...props }) => {
         formData.append("title", values.title);
         formData.append("speakerRole", values.speakerRole);
         formData.append("speakerDescription", values.speakerDescription);
-        axios
-          .create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .put(appUrl + `speakers/${selectedSpeaker.id}`, formData)
+        api
+          .put(`speakers/${selectedSpeaker.id}`, formData)
           .then(() => onUpdateSuccess())
           .catch((error) => onUpdateError(error.response.data.message));
       }

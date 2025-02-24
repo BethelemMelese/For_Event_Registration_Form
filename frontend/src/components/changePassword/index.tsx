@@ -4,6 +4,7 @@ import { appUrl } from "../../appurl";
 import axios from "axios";
 import Notification from "../../commonComponent/notification";
 import { userService } from "../../polices/userService";
+import { api } from "../../polices/api/axiosConfig";
 
 const ChangePassword = () => {
   const navigate = useNavigate();
@@ -28,18 +29,23 @@ const ChangePassword = () => {
     });
   };
 
-  useEffect(() => {
-    const userToken = userService.token;
-    axios
-      .create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-      .get(appUrl + `admin/UserInfo/${userToken}`)
-      .then((response: any) => onFetchSuccess(response.data))
-      .catch((error: any) => onFetchError(error));
-  }, []);
+  // const [userId, setUserId] = useState<any>();
+
+  // console.log("userId...", userId);
+  // const checkAuth = () => {
+  //   api
+  //     .get("/admin/auth")
+  //     .then((response: any) => {
+  //       setUserId(response.data);
+  //     })
+  //     .catch((error: any) => {
+  //       setUserId(false);
+  //     });
+  // };
+
+  // useEffect(() => {
+  //   checkAuth();
+  // }, []);
 
   const validateForm = () => {
     let newErrors: { [key: string]: string } = {};
@@ -85,19 +91,11 @@ const ChangePassword = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validateForm()) return;
-    axios
-      .create({
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .put(
-        appUrl + `admin/changePassword/${response.id}`,
-        formData
-      )
+    api
+      .put(`admin/changePassword`, formData)
       .then((response) => onUpdateSuccess(response.data))
       .catch((error) => onUpdateError(error.response.data.message));
   };

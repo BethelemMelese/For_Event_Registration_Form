@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import image from "../images/Events-amico-purpule.png";
+import { api } from "../polices/api/axiosConfig";
 
 const TopBar = ({ ...props }) => {
   const navigate = useNavigate();
@@ -12,7 +13,9 @@ const TopBar = ({ ...props }) => {
   };
 
   const onLogout = () => {
-    localStorage.removeItem("token");
+    api.post("admin/logout/").then((response) => {
+      window.location.href = "/login";
+    });
   };
 
   return (

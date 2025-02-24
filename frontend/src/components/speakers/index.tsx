@@ -8,6 +8,7 @@ import AddSpeaker from "./create";
 import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { ExclamationCircleFilled } from "@ant-design/icons";
+import { api } from "../../polices/api/axiosConfig";
 
 const { confirm } = Modal;
 
@@ -132,7 +133,6 @@ const Speakers = () => {
       filters,
       ...sorter,
     });
-    // `dataSource` is useless since `pageSize` changed
     if (pagination.pageSize !== tableParams.pagination?.pageSize) {
       setData([]);
     }
@@ -140,13 +140,8 @@ const Speakers = () => {
 
   //for get all data
   const onFetchAdmin = () => {
-    axios
-      .create({
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .get(appUrl + `speakers`)
+    api
+      .get(`speakers`)
       .then((res) => {
         setLoading(false);
         setDataSource(res.data);
@@ -193,13 +188,8 @@ const Speakers = () => {
       okType: "danger",
       cancelText: "No",
       onOk() {
-        axios
-          .create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .delete(appUrl + `speakers/${value}`)
+        api
+          .delete(`speakers/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);
           })

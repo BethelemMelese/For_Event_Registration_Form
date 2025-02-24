@@ -10,7 +10,7 @@ const {
   updateHeroSections,
   deleteHeroSections,
 } = require("../controllers/heroSection.controller.js");
-const { verificationToken } = require("../controllers/admin.controller.js");
+const { authenticateUser } = require("../controllers/admin.controller.js");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../config/cloudinary.js");
 
@@ -24,15 +24,10 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage: storage });
-router.get("/", verificationToken, getHeroSections);
+router.get("/", authenticateUser, getHeroSections);
 router.get("/get", getHeroSectionsForAll);
-router.post("/", verificationToken, upload.single("file"), addHeroSections);
-router.put(
-  "/:id",
-  verificationToken,
-  upload.single("file"),
-  updateHeroSections
-);
-router.delete("/:id", verificationToken, deleteHeroSections);
+router.post("/", authenticateUser, upload.single("file"), addHeroSections);
+router.put("/:id", authenticateUser, upload.single("file"), updateHeroSections);
+router.delete("/:id", authenticateUser, deleteHeroSections);
 
 module.exports = router;

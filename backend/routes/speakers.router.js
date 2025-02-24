@@ -10,7 +10,7 @@ const {
   updateSpeakers,
   deleteSpeakers,
 } = require("../controllers/speaker.controller.js");
-const { verificationToken } = require("../controllers/admin.controller.js");
+const { authenticateUser } = require("../controllers/admin.controller.js");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../config/cloudinary.js");
 
@@ -24,10 +24,10 @@ const storage = new CloudinaryStorage({
 });
 
 const upload = multer({ storage: storage });
-router.get("/", verificationToken, getSpeakers);
+router.get("/", authenticateUser, getSpeakers);
 router.get("/allSpeaker", getSpeakersForAll);
-router.post("/", verificationToken, upload.single("file"), addSpeakers);
-router.put("/:id", verificationToken, upload.single("file"), updateSpeakers);
-router.delete("/:id", verificationToken, deleteSpeakers);
+router.post("/", authenticateUser, upload.single("file"), addSpeakers);
+router.put("/:id", authenticateUser, upload.single("file"), updateSpeakers);
+router.delete("/:id", authenticateUser, deleteSpeakers);
 
 module.exports = router;

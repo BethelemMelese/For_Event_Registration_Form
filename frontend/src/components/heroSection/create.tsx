@@ -10,6 +10,7 @@ import { UploadOutlined } from "@ant-design/icons";
 import { appUrl } from "../../appurl";
 import axios from "axios";
 import Controls from "../../commonComponent/Controls";
+import { api } from "../../polices/api/axiosConfig";
 
 interface ItemState {
   headerTitle: string;
@@ -22,7 +23,9 @@ const initialState: ItemState = {
 };
 const AddHeroSection = ({ ...props }) => {
   const [viewMode, setViewMode] = useState(props.viewMode);
-  const [selectedHeroSection, setSelectedHeroSection] = useState(props.selectedHeroSection);
+  const [selectedHeroSection, setSelectedHeroSection] = useState(
+    props.selectedHeroSection
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [fileList, setFileList] = useState<any>();
   const [validFileFormat, setValidFileFormat] = useState(false);
@@ -107,13 +110,8 @@ const AddHeroSection = ({ ...props }) => {
           formData.append("file", fileList);
           formData.append("headerTitle", values.headerTitle);
           formData.append("subTitle", values.subTitle);
-          axios
-            .create({
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            })
-            .post(appUrl + "heroSections", formData)
+          api
+            .post("heroSections", formData)
             .then(() => onCreateSuccess())
             .catch((error) => onCreateError(error.response.data.message));
         }
@@ -126,13 +124,8 @@ const AddHeroSection = ({ ...props }) => {
         );
         formData.append("headerTitle", values.headerTitle);
         formData.append("subTitle", values.subTitle);
-        axios
-          .create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .put(appUrl + `heroSections/${selectedHeroSection.id}`, formData)
+        api
+          .put(`heroSections/${selectedHeroSection.id}`, formData)
           .then(() => onUpdateSuccess())
           .catch((error) => onUpdateError(error.response.data.message));
       }

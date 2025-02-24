@@ -8,6 +8,7 @@ import AddHeroSection from "./create";
 import { EditOutlined } from "@mui/icons-material";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { ExclamationCircleFilled } from "@ant-design/icons";
+import { api } from "../../polices/api/axiosConfig";
 
 const { confirm } = Modal;
 
@@ -127,13 +128,8 @@ const HeroSection = () => {
 
   //for get all data
   const onFetchAdmin = () => {
-    axios
-      .create({
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-      .get(appUrl + `heroSections`)
+    api
+      .get(`heroSections`)
       .then((res) => {
         setLoading(false);
         setDataSource(res.data);
@@ -180,13 +176,8 @@ const HeroSection = () => {
       okType: "danger",
       cancelText: "No",
       onOk() {
-        axios
-          .create({
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-          .delete(appUrl + `heroSections/${value}`)
+        api
+          .delete(`heroSections/${value}`)
           .then((response) => {
             onDeleteSuccess(response.data);
           })
@@ -205,10 +196,7 @@ const HeroSection = () => {
   return (
     <div className="app_container">
       {viewMode == "view" && (
-        <Card
-          title={<h2>Manage Hero Section</h2>}
-          className="main-content"
-        >
+        <Card title={<h2>Manage Hero Section</h2>} className="main-content">
           <div className="list_data">
             <Card>
               <Table

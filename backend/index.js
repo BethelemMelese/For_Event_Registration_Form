@@ -3,51 +3,41 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const app = express();
-const port = 5000; // You can choose any port number you prefer.
+const helmet = require("helmet");
+const rateLimit = require("express-rate-limit");
+const csurf = require("csurf");
+const cookieParser = require("cookie-parser");
 
 const admin = require("./routes/admin.router.js");
 const user = require("./routes/user.router.js");
 const speaker = require("./routes/speakers.router.js");
 const heroSection = require("./routes/heroSection.router.js");
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-
 // configuration file
 dotenv.config();
 
-const allowedOrigins = ["https://grandhabshabusinessevent.netlify.app/"];
-// const allowedOrigins = ["http://localhost:3000"];
-
 var corsOptions = {
-  origin: allowedOrigins,
+  origin: "http://localhost:3000",
   methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
+  optionsSuccessStatus: 200,
 };
 
-app.use(
-  cors({
-    origin: "*", // Replace with your domain or use '*' to allow all origins
-    methods: ["GET", "POST", "PUT", "DELETE"], // Specify the methods you want to allow
-    allowedHeaders: ["Content-Type", "Authorization"], // Specify the headers you want to allow
-    credentials: true, // If you need to allow cookies or other credentials
-    optionsSuccessStatus: 200,
-  })
-);
+// Define rate limit configuration
+// const limiter = rateLimit({
+//   windowMs: 60 * 1000, // 1 minutes window
+//   max: 5, // Allow 100 requests per window
+//   message: `You have exceeded your 5 requests per minute limit.`,
+//   headers: true,
+// });
 
-app.options("*", cors(corsOptions)); // Handle preflight requests
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Accept, Authorization,Origin, X-Requested-With"
-  );
-  next();
-});
-
-// Middleware to serve static files
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(helmet());
+app.use(cookieParser());
+// app.use(limiter);
+app.use(cors(corsOptions));
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
@@ -67,6 +57,10 @@ mongoose
   .catch((error) => {
     console.log("Connection failed!", error);
   });
+
+// CSRF Protection
+// const csrfProtection = csurf({ cookie: true });
+// app.use(csrfProtection);
 
 // routes
 app.use("/api/admin", admin);

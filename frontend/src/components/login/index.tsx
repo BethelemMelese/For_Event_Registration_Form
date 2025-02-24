@@ -1,13 +1,18 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { appUrl } from "../../appurl";
 import axios from "axios";
 import Notification from "../../commonComponent/notification";
 import image from "../../images/Tablet login-rafiki.png";
+import { api } from "../../polices/api/axiosConfig";
+import { useAuth } from "../../polices/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { checkAuth } = useAuth();
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [attempts, setAttempts] = useState(0);
+  const [isLocked, setIsLocked] = useState(false);
 
   const [formData, setFormData] = useState({
     userName: "",
@@ -38,8 +43,7 @@ const Login = () => {
       message: "You Signed In Successfully!",
     });
     setTimeout(() => {
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("role", response.role);
+      checkAuth();
       navigate("/forEvent/adminpanel");
       window.location.reload();
     }, 2000);
@@ -59,12 +63,30 @@ const Login = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
+    if (isLocked) return; // Prevent further login attempts
     e.preventDefault();
     if (!validateForm()) return;
-    axios
-      .post(appUrl + "admin/login/", formData)
-      .then((response) => onLoginSuccess(response.data))
-      .catch((error) => onLoginError(error.response.data.message));
+    api
+      .post("admin/login/", formData)
+      .then((response) => {
+        onLoginSuccess(response.data);
+        setAttempts(0); // Reset failed attempts
+      })
+      .catch((error) => {
+        setAttempts((prev) => prev + 1);
+        if (error.response.data.message == undefined) {
+          onLoginError(error.response.data);
+        } else onLoginError(error.response.data.message);
+
+        if (attempts + 1 >= 3) {
+          setIsLocked(true);
+          setTimeout(() => {
+            onLoginError("Too many attempts! Try again in 15 minutes.");
+            setIsLocked(false);
+            setAttempts(0);
+          },  5 * 60 * 1000); // Lock for 5 minutes
+        }
+      });
   };
 
   return (
@@ -107,7 +129,19 @@ const Login = () => {
                   <span className="error">{errors.password}</span>
                 )}
               </div>
-              <button type="submit">Sign In</button>
+              {isLocked == false ? (
+                <button type="submit" className="login_unlocked">
+                  Sign In
+                </button>
+              ) : (
+                <button className="login_locked">Sign In Locked</button>
+              )}
+
+              {isLocked && (
+                <p className="error">
+                  Too many attempts! Try again in 5 minutes.
+                </p>
+              )}
             </form>
           </div>
         </div>

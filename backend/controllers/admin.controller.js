@@ -1,11 +1,14 @@
 const Admin = require("../models/admin.model.js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+
+// configuration file
+dotenv.config();
 
 const RegisterAdmin = async (req, res) => {
   try {
-    const saltRounds = 10;
-    const password = bcrypt.hashSync(req.body.password, saltRounds);
+    const password = bcrypt.hashSync(req.body.password, 10);
     const admin = await Admin.create({
       userName: req.body.userName,
       passwordHash: password,
@@ -26,31 +29,33 @@ const LoginAdmin = async (req, res) => {
     const { userName, password } = req.body;
     const admin = await Admin.findOne({ userName });
     if (!admin) {
-      return res
-        .status(404)
-        .json({ message: "Admin is not Found, Please insert correctly !" });
+      return res.status(404).json({
+        message: "Your account isn't Found, Please insert correctly !",
+      });
     }
-
-    const generateToken = jwt.sign(
-      {
-        id: admin._id,
-        time: Date(),
-        name: userName,
-      },
-      process.env.JWT_SECRET_KEY,
-      {
-        expiresIn: 3600000,
-      }
-    );
 
     const isPasswordMatch = bcrypt.compareSync(password, admin.passwordHash);
 
+    const generateToken = jwt.sign(
+      { id: admin._id, name: userName },
+      process.env.JWT_SECRET_KEY,
+      {
+        expiresIn: "1h",
+      }
+    );
     if (admin && isPasswordMatch) {
       await Admin.findByIdAndUpdate(admin._id, {
         token: generateToken,
       });
 
       const updatedAdmin = await Admin.findOne({ userName });
+      // Store token in HttpOnly cookie
+      res.cookie("token", generateToken, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        maxAge: 3600000,
+      });
       res.status(200).json({
         message: "Login is Successfully Done !",
         token: updatedAdmin.token,
@@ -60,11 +65,11 @@ const LoginAdmin = async (req, res) => {
     } else if (!isPasswordMatch) {
       res.status(404).json({
         message:
-          "The Password is Not Correct, Please insert the correct password !",
+          "Your account isn't Found, Please insert correctly !",
       });
     } else {
       res.status(404).json({
-        error: "Admin is not Found, Please insert correctly !",
+        error: "Your account isn't Found, Please insert correctly !",
       });
     }
   } catch (error) {
@@ -72,12 +77,20 @@ const LoginAdmin = async (req, res) => {
   }
 };
 
+const LogOutAdmin = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    res.json({ message: "Logged out" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const updatePassword = async (req, res) => {
   try {
-    const { id } = req.params;
     const { oldPassword, newPassword } = req.body;
 
-    const admin = await Admin.findById(id);
+    const admin = await Admin.findById({ _id: req.user.id });
     if (admin == null) {
       return res
         .status(404)
@@ -95,10 +108,7 @@ const updatePassword = async (req, res) => {
       }
       const saltRounds = 10;
       const password = bcrypt.hashSync(newPassword, saltRounds);
-      await Admin.updateOne(
-        { _id: id },
-        { passwordHash: password }
-      );
+      await Admin.updateOne({ _id: admin._id }, { passwordHash: password });
       res.status(200).json({ message: "Password is Successfully Updated !" });
     }
   } catch (error) {
@@ -119,6 +129,32 @@ const verificationToken = async (req, res, next) => {
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+const protect = async (req, res, next) => {
+  const token = req.cookies.token;
+  if (token == undefined)
+    return res.status(401).json({ message: "Unauthorized" });
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    res.json({ isAuthenticated: true, user: decoded });
+  } catch (error) {
+    res.status(401).json({ message: "Invalid token" });
+  }
+};
+
+// Middleware to verify JWT
+const authenticateUser = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) return res.status(401).json({ error: "Unauthorized" });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    req.user = decoded;
+    next();
+  } catch (error) {
+    return res.status(401).json({ error: "Invalid token" });
   }
 };
 
@@ -143,8 +179,11 @@ const getUserByToken = async (req, res) => {
 
 module.exports = {
   LoginAdmin,
+  LogOutAdmin,
   RegisterAdmin,
   updatePassword,
   verificationToken,
   getUserByToken,
+  protect,
+  authenticateUser,
 };
