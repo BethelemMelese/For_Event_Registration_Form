@@ -134,8 +134,7 @@ const verificationToken = async (req, res, next) => {
 
 const protect = async (req, res, next) => {
   const token = req.cookies.token;
-  if (!token)
-    return res.status(401).json({ message: "Unauthorized" });
+  if (!token) return res.status(401).json({ message: "Unauthorized" });
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     res.json({ isAuthenticated: true, user: decoded });
@@ -161,7 +160,6 @@ const authenticateUser = (req, res, next) => {
 const getUserByToken = async (req, res) => {
   try {
     const { token } = req.params;
-
     const admin = await Admin.findOne({ token: token });
     if (!admin) {
       res.status(404).json({ message: "User not Found !" });
