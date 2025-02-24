@@ -27,7 +27,6 @@ const RegisterAdmin = async (req, res) => {
 const LoginAdmin = async (req, res) => {
   try {
     const { userName, password } = req.body;
-    console.log("req.body...", req.body);
     const admin = await Admin.findOne({ userName });
     if (!admin) {
       return res.status(404).json({
@@ -58,7 +57,6 @@ const LoginAdmin = async (req, res) => {
         sameSite: "strict",
         maxAge: 3600000,
       });
-      console.log("req.cookues...", req.cookies.token);
       res.status(200).json({
         message: "Login is Successfully Done !",
         token: updatedAdmin.token,

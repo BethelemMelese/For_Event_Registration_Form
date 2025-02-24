@@ -26,6 +26,6 @@ router.post("/logout", LogOutAdmin);
 router.post("/", RegisterAdmin);
 router.put("/changePassword", authenticateUser, updatePassword);
 router.get("/UserInfo/:token", authenticateUser, getUserByToken);
-router.get("/auth", protect);
+router.get("/auth", authenticateUser, protect);
 
 module.exports = router;
