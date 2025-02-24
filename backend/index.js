@@ -4,8 +4,6 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const app = express();
 const helmet = require("helmet");
-const rateLimit = require("express-rate-limit");
-const csurf = require("csurf");
 const cookieParser = require("cookie-parser");
 
 const admin = require("./routes/admin.router.js");
@@ -24,20 +22,20 @@ var corsOptions = {
   optionsSuccessStatus: 200,
 };
 
-// Define rate limit configuration
-// const limiter = rateLimit({
-//   windowMs: 60 * 1000, // 1 minutes window
-//   max: 5, // Allow 100 requests per window
-//   message: `You have exceeded your 5 requests per minute limit.`,
-//   headers: true,
-// });
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(cookieParser());
-// app.use(limiter);
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+    optionsSuccessStatus: 200,
+  })
+);
 app.use(express.static("public"));
 
 app.get("/", (req, res) => {
