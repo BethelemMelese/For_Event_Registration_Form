@@ -45,7 +45,6 @@ const Login = () => {
     setTimeout(() => {
       checkAuth();
       navigate("/forEvent/adminpanel");
-      window.location.reload();
     }, 2000);
   };
 
@@ -84,7 +83,7 @@ const Login = () => {
             onLoginError("Too many attempts! Try again in 15 minutes.");
             setIsLocked(false);
             setAttempts(0);
-          },  5 * 60 * 1000); // Lock for 5 minutes
+          }, 15 * 60 * 1000); // Lock for 15 minutes
         }
       });
   };
@@ -139,7 +138,7 @@ const Login = () => {
 
               {isLocked && (
                 <p className="error">
-                  Too many attempts! Try again in 5 minutes.
+                  Too many attempts! Try again in 15 minutes.
                 </p>
               )}
             </form>

@@ -27,6 +27,7 @@ const RegisterAdmin = async (req, res) => {
 const LoginAdmin = async (req, res) => {
   try {
     const { userName, password } = req.body;
+    console.log("req.body...", req.body);
     const admin = await Admin.findOne({ userName });
     if (!admin) {
       return res.status(404).json({
@@ -50,12 +51,14 @@ const LoginAdmin = async (req, res) => {
 
       const updatedAdmin = await Admin.findOne({ userName });
       // Store token in HttpOnly cookie
+      res.setHeader("Access-Control-Allow-Credentials", "true");
       res.cookie("token", generateToken, {
         httpOnly: true,
         secure: true,
         sameSite: "strict",
         maxAge: 3600000,
       });
+      console.log("req.cookues...", req.cookies.token);
       res.status(200).json({
         message: "Login is Successfully Done !",
         token: updatedAdmin.token,
@@ -64,8 +67,7 @@ const LoginAdmin = async (req, res) => {
       });
     } else if (!isPasswordMatch) {
       res.status(404).json({
-        message:
-          "Your account isn't Found, Please insert correctly !",
+        message: "Your account isn't Found, Please insert correctly !",
       });
     } else {
       res.status(404).json({
