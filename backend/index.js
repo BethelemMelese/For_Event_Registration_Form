@@ -29,7 +29,7 @@ app.use(cookieParser());
 // app.use(cors(corsOptions));
 app.use(
   cors({
-    origin: "https://grandhabeshabusinessevent.com/", // Frontend URL
+    origin: "https://grandhabshabusinessevent.netlify.app/", // Frontend URL
     credentials: true, // Allow cookies & authentication headers
   })
 );
