@@ -22,6 +22,11 @@ var corsOptions = {
   optionsSuccessStatus: 200,
 };
 
+const allowedOrigins = [
+  "https://grandhabeshabusinessevent.com", // Correct frontend domain
+  "https://grandhabshabusinessevent.netlify.app", // Add this if you still use Netlify preview
+];
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
@@ -29,7 +34,14 @@ app.use(cookieParser());
 // app.use(cors(corsOptions));
 app.use(
   cors({
-    origin: "https://grandhabshabusinessevent.netlify.app/", // Frontend URL
+    // origin: "https://grandhabeshabusinessevent.com/", // Frontend URL
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, origin);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true, // Allow cookies & authentication headers
   })
 );
