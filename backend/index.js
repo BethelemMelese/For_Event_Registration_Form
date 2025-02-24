@@ -25,6 +25,7 @@ var corsOptions = {
 const allowedOrigins = [
   "https://grandhabeshabusinessevent.com", // Correct frontend domain
   "https://grandhabshabusinessevent.netlify.app", // Add this if you still use Netlify preview
+  "http://localhost:3000",
 ];
 
 app.use(express.json());
