@@ -277,13 +277,12 @@ const Home = () => {
               </div>
 
               {isSubmitting ? (
-                <Button
-                  className="submit-button"
-                  variant="contained"
+                <button
+                  className="progress"
                   disabled={isSubmitting}
                 >
                   Submitting...
-                </Button>
+                </button>
               ) : (
                 <button type="submit" className="submit-button">
                   Submit
@@ -299,7 +298,7 @@ const Home = () => {
         <img src={image} alt="Sponsor" className="sponsor-logo" />
       </div>
       <div className="copyrightholder">
-        <p>&copy; 2025 Grand Habesha Business Event. All rights reserved</p>
+        <p>&copy; {new Date().getFullYear()} Grand Habesha Business Event. All rights reserved</p>
       </div>
     </div>
   );

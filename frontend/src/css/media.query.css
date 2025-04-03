@@ -118,6 +118,13 @@
     margin-left: 100%;
     margin-top: 30px;
   }
+
+  .progress {
+    width: 150%;
+    margin: 0px auto;
+    margin-left: 10rem;
+    margin-top: 30px;
+  }
 }
 
 @media screen and (max-width: 1024px) {
